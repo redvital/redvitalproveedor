@@ -19,7 +19,7 @@ trait ApiResponse
     {
         return response()->json($data, $code);
     }
-    protected function successMensaje($data, $code = Response::HTTP_ACCEPTED)
+    protected function successMessage($data, $code = Response::HTTP_ACCEPTED)
     {
         return response()->json(['data' => $data], $code);
     }
@@ -33,6 +33,7 @@ trait ApiResponse
     {
         return $this->successResponse(['data' => $collection->sortBy('id')->values()->all()], $code);
     }
+    
     protected function showAllResources(ResourceCollection $collection, $code = 200)
     {
 
