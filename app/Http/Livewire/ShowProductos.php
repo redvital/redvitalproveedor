@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Producto;
+use App\Models\Product;
 
 class ShowProductos extends Component
 {
@@ -14,8 +14,8 @@ class ShowProductos extends Component
     public function render()
     {
         // $productos = Producto::all();
-        $productos = Producto::where('nombre','like','%'. $this-> search .'%')
-        ->orWhere('sku_provee','like','%'. $this-> search .'%')
+        $productos = Product::where('name','like','%'. $this-> search .'%')
+        ->orWhere('sku_provider','like','%'. $this-> search .'%')
         ->orderBy($this->sort, $this->direction)
         ->get();
         return view('livewire.show-productos',compact('productos'));
@@ -33,5 +33,5 @@ class ShowProductos extends Component
                 $this->direction = 'asc';
             }
         }
-   
+
     }
