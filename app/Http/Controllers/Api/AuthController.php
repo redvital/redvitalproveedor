@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -19,7 +19,7 @@ class AuthController extends Controller
             'name' => 'required|string',
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => 'required|string|min:8,max:140',
-            'confirm_password' => 'required|string|same:password'
+            'confirm_password' => 'required|string|same:password',
         ]);
 
         if ($validator->fails()) {
@@ -90,3 +90,4 @@ class AuthController extends Controller
         ]);
     }
 }
+// pdate
