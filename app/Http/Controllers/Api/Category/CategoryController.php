@@ -30,7 +30,10 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         // $this->validate($request, $this->rules);
-        $request->validated();
+        $validate = Validator::make($request->all(), $this->rules);
+        if ($validate->fails()) {
+            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+        }
         $category = Category::create(
             $request->all(),
         );
@@ -48,11 +51,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+
         $validate = Validator::make($request->all(), $this->rules);
         if ($validate->fails()) {
-            return response()->json($validate->errors(), Response::HTTP_BAD_REQUEST);
+            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
-
         $category->update($request->all());
         return $this->showOne($category);
     }
