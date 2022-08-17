@@ -22,7 +22,8 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
+        $store = Stores::all();
+        return $this->showAll($store);
     }
 
     /**
@@ -49,9 +50,9 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, Stores $store)
     {
-        //
+        return $this->showOne($store);
     }
 
     /**
@@ -61,9 +62,14 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Stores $store)
     {
-        //
+        $validate = Validator::make($request->all(), $this->rules);
+        if ($validate->fails()) {
+            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+        }
+        $store->update($request->all());
+        return $this->showOne($store);
     }
 
     /**
@@ -72,8 +78,9 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Stores $store)
     {
-        //
+        $store->delete();
+        return $this->showOne($store);
     }
 }
