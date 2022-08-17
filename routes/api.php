@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Category\CategoryController;
+use App\Http\Controllers\Api\Store\StoreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,14 @@ Route::post('/category', [CategoryController::class, 'store']);
 Route::get('/category/{category}', [CategoryController::class, 'show']);
 Route::put('/category/{category}', [CategoryController::class, 'update']);
 Route::delete('/category/{category}', [CategoryController::class, 'destroy']);
+
+// store
+Route::get('/store', [StoreController::class, 'index']);
+Route::post('/store', [StoreController::class, 'store']);
+Route::get('/store/{store}', [StoreController::class, 'show']);
+Route::post('/store/{store}', [StoreController::class, 'update']);
+Route::delete('/store/{store}', [StoreController::class, 'destroy']);
+// end store
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signUp']);
