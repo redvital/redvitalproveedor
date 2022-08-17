@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('location');
             $table->string('description');
             $table->string('code');
+            $table->timestamps();
         });
     }
 
