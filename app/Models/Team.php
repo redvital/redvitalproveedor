@@ -21,6 +21,7 @@ class Team extends JetstreamTeam
         'personal_team' => 'boolean',
     ];
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,6 +30,8 @@ class Team extends JetstreamTeam
     protected $fillable = [
         'name',
         'personal_team',
+        'id',
+        'user_id',
     ];
 
     /**

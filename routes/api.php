@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Category\CategoryController;
+use App\Http\Controllers\Api\Store\StoreController;
 use App\Http\Controllers\Api\Provider\ProviderController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,14 @@ Route::get('/provider/{provider}', [ProviderController::class, 'show']);
 Route::post('/provider/{provider}', [ProviderController::class, 'update']);
 Route::delete('/provider/{provider}', [ProviderController::class, 'destroy']);
 //End Providers
+
+// store
+Route::get('/store', [StoreController::class, 'index']);
+Route::post('/store', [StoreController::class, 'store']);
+Route::get('/store/{store}', [StoreController::class, 'show']);
+Route::post('/store/{store}', [StoreController::class, 'update']);
+Route::delete('/store/{store}', [StoreController::class, 'destroy']);
+// end store
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signUp']);

@@ -13,11 +13,13 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
+        <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
 
         @livewireStyles
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -27,6 +29,9 @@
 
             <!-- Page Heading -->
             @if (isset($header))
+            @if (auth()->check())
+                {{-- {{ Auth::user()->name }} --}}
+                @endif
                 <header class="bg-white shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
@@ -43,5 +48,14 @@
         @stack('modals')
 
         @livewireScripts
+        <script>
+            Livewire.on('alert', function(message) { 
+                Swal.fire(
+                'Buen Trabajo!',
+                message,
+                'success'
+                )
+            })
+            </script>
     </body>
 </html>

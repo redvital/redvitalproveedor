@@ -17,11 +17,17 @@ class ProductoFactory extends Factory
     public function definition()
     {
         return [
-            'sku_provee'=> $this->faker->sentence(),
-            'nombre'=>$this->faker->text(),
-            'barras'=>$this->faker->text(),
-            'status'=>$this->faker->text(),
-            'cantidad_empaque'=>$this->faker->randomNumber()
+            // 'sku_provee'=> $this->faker->sentence(),
+            // 'nombre'=>$this->faker->text(),
+            // 'barras'=>$this->faker->text(),
+            // 'status'=>$this->faker->text(),
+            // 'cantidad_empaque'=>$this->faker->randomNumber(),
+            // 'condicion'=>$this->faker->text(),
+            // 'moneda'=>$this->faker->text(),
+            // 'cantidad'=>$this->faker->text(),
+            // 'cbulto'=>$this->faker->text(),
+            // 'cunidad'=>$this->faker->text(),
+            // 'psugerido'=>$this->faker->text()
 
         ];
     }

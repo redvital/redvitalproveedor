@@ -16,11 +16,11 @@
                                 'route' => route('dashboard'),
                                 'active'=> request()->routeIs('dashboard')
                             ],
-                            [
-                                'name' => 'Agregar Productos',
-                                'route' => '#',
-                                'active'=> request()->routeIs('nproductos')
-                            ],
+                            // [
+                            //     'name' => 'Agregar Productos',
+                            //     'route' => '#',
+                            //     'active'=> request()->routeIs('nproductos')
+                            // ],
                             [
                                 'name' => 'Lista de Productos',
                                 'route' => route('productos'),
