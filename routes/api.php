@@ -1,6 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Category\CategoryController;
+use App\Http\Controllers\Api\Store\StoreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,8 +14,31 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
+Route::get('/category', [CategoryController::class, 'index']);
+Route::post('/category', [CategoryController::class, 'store']);
+Route::get('/category/{category}', [CategoryController::class, 'show']);
+Route::put('/category/{category}', [CategoryController::class, 'update']);
+Route::delete('/category/{category}', [CategoryController::class, 'destroy']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// store
+Route::get('/store', [StoreController::class, 'index']);
+Route::post('/store', [StoreController::class, 'store']);
+Route::get('/store/{store}', [StoreController::class, 'show']);
+Route::post('/store/{store}', [StoreController::class, 'update']);
+Route::delete('/store/{store}', [StoreController::class, 'destroy']);
+// end store
+
+Route::post('login', [AuthController::class, 'login']);
+Route::post('signup', [AuthController::class, 'signUp']);
+// mover hacia el login
+// category
+
+// end category
+Route::group(['middleware' => 'auth:sanctum'], function () {
+
+    Route::prefix('auth')->group(function () {
+        Route::get('me', [AuthController::class, 'me']);
+        Route::post('logout', [AuthController::class, 'logout']);
+    });
 });
