@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Category\CategoryController;
 use App\Http\Controllers\Api\Store\StoreController;
+use App\Http\Controllers\Api\Line\LineController;
 use App\Http\Controllers\Api\Provider\ProviderController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,14 @@ Route::get('/store/{store}', [StoreController::class, 'show']);
 Route::post('/store/{store}', [StoreController::class, 'update']);
 Route::delete('/store/{store}', [StoreController::class, 'destroy']);
 // end store
+
+// line
+Route::get('/line', [LineController::class, 'index']);
+Route::post('/line', [LineController::class, 'store']);
+Route::get('/line/{line}', [LineController::class, 'show']);
+Route::post('/line/{line}', [LineController::class, 'update']);
+Route::delete('/line/{line}', [LineController::class, 'destroy']);
+// end line
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signUp']);
