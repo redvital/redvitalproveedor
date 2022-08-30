@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Category\CategoryController;
 use App\Http\Controllers\Api\Store\StoreController;
+use App\Http\Controllers\Api\Brand\BrandController;
 use App\Http\Controllers\Api\Provider\ProviderController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,14 @@ Route::get('/store/{store}', [StoreController::class, 'show']);
 Route::post('/store/{store}', [StoreController::class, 'update']);
 Route::delete('/store/{store}', [StoreController::class, 'destroy']);
 // end store
+
+// brand
+Route::get('/brand', [BrandController::class, 'index']);
+Route::post('/brand', [BrandController::class, 'store']);
+Route::get('/brand/{brand}', [BrandController::class, 'show']);
+Route::post('/brand/{brand}', [BrandController::class, 'update']);
+Route::delete('/brand/{brand}', [BrandController::class, 'destroy']);
+// end brand
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signUp']);
