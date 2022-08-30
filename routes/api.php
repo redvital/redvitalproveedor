@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Category\CategoryController;
 use App\Http\Controllers\Api\Store\StoreController;
 use App\Http\Controllers\Api\Brand\BrandController;
+use App\Http\Controllers\Api\SubBrand\SubBrandController;
 use App\Http\Controllers\Api\Provider\ProviderController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +48,13 @@ Route::post('/brand/{brand}', [BrandController::class, 'update']);
 Route::delete('/brand/{brand}', [BrandController::class, 'destroy']);
 // end brand
 
+// sub brand
+Route::get('/subbrand', [SubBrandController::class, 'index']);
+Route::post('/subbrand', [SubBrandController::class, 'store']);
+Route::get('/subbrand/{subbrand}', [SubBrandController::class, 'show']);
+Route::post('/subbrand/{subbrand}', [SubBrandController::class, 'update']);
+Route::delete('/subbrand/{subbrand}', [SubBrandController::class, 'destroy']);
+// end sub brand
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signUp']);
 // mover hacia el login
