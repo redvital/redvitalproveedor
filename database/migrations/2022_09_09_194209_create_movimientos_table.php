@@ -13,15 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('data_proveedores', function (Blueprint $table) {
+        Schema::create('moves', function (Blueprint $table) {
             $table->id();
-            $table->string('id_proveedor')->references('id')->on('teams')->onDelete("cascade");
-            $table->string('rif');
-            $table->string('Telefono');
-            $table->string('Dirección');
-            $table->timestamp('email_verified_at')->nullable();
-
             $table->timestamps();
+            $table->foreignId('sku_provee')->references('id')->on('products')->onDelete("cascade");
+            $table->string('condition');
+            $table->string('currency');
+            $table->integer('amount');
+            $table->double('qpackage',8,2);
+            $table->double('qunit',8,2);
+            $table->double('sprice',8,2);
+
         });
     }
 
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_proveedores');
+        Schema::dropIfExists('moves');
     }
 };
