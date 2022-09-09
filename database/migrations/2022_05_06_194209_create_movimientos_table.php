@@ -16,14 +16,14 @@ return new class extends Migration
         Schema::create('movimientos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('sku_provee')->unsigned();
+            $table->foreignId('sku_provee')->references('id')->on('products')->onDelete("cascade");
             $table->string('condicion');
             $table->string('moneda');
             $table->integer('cantidad');
             $table->double('cbulto',8,2);
             $table->double('cunidad',8,2);
             $table->double('psugerido',8,2);
-            $table->foreignId('sku_provee')->references('sku_provee')->on('productos')->onDelete("cascade");
+            
         });
     }
 
