@@ -1,22 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Api\Provider;
+namespace App\Http\Controllers\Api\Representative;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Provider;
+use App\Models\Representative;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProviderController extends Controller
+class RepresentativeController extends Controller
 {
 
     private $rules = [
-        'name' => 'required',
-        'email' => 'required',
-        'company' => 'required',
-        'rif' => 'required',
-        'provider_type' => 'required',
+        'commercial_register' => 'required',
+        'representatives_document' => 'required',
+        'rif' => 'required'
     ];
 
     /**
@@ -26,8 +24,8 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        $provider = Provider::all();
-        return $this->showAll($provider);
+        $representative = Representative::all();
+        return $this->showAll($representative);
     }
 
     /**
@@ -43,10 +41,10 @@ class ProviderController extends Controller
         if ($validate->fails()) {
             return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
-        $provider = Provider::create(
+        $representative = Representative::create(
             $request->all(),
         );
-        return $this->showOne($provider, 201);
+        return $this->showOne($representative, 201);
     }
 
     /**
@@ -55,9 +53,9 @@ class ProviderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Provider $provider)
+    public function show(Request $request, Representative $representative)
     {
-        return $this->showOne($provider);
+        return $this->showOne($representative);
     }
 
     /**
@@ -67,15 +65,14 @@ class ProviderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Provider $provider)
+    public function update(Request $request, Representative $representative)
     {
-
         $validate = Validator::make($request->all(), $this->rules);
         if ($validate->fails()) {
             return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
-        $provider->update($request->all());
-        return $this->showOne($provider);
+        $representative->update($request->all());
+        return $this->showOne($representative);
     }
 
     /**
@@ -84,9 +81,9 @@ class ProviderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Provider $provider)
+    public function destroy(Representative $representative)
     {
-        $provider->delete();
-        return $this->showOne($provider);
+        $representative->delete();
+        return $this->showOne($representative);
     }
 }

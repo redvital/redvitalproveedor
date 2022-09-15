@@ -7,6 +7,9 @@ use App\Http\Controllers\Api\Brand\BrandController;
 use App\Http\Controllers\Api\SubBrand\SubBrandController;
 use App\Http\Controllers\Api\Line\LineController;
 use App\Http\Controllers\Api\Provider\ProviderController;
+use App\Http\Controllers\Api\SupplierBankDetails\SupplierBankDetailsController;
+use App\Http\Controllers\Api\Representative\RepresentativeController;
+use App\Http\Controllers\Api\AdditionalSupplierInformation\AdditionalSupplierInformationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,6 +66,31 @@ Route::get('/line/{line}', [LineController::class, 'show']);
 Route::post('/line/{line}', [LineController::class, 'update']);
 Route::delete('/line/{line}', [LineController::class, 'destroy']);
 // end line
+
+// Supplier Bank Details
+Route::get('/supplierbankdetails', [SupplierBankDetailsController::class, 'index']);
+Route::post('/supplierbankdetails', [SupplierBankDetailsController::class, 'store']);
+Route::get('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'show']);
+Route::post('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'update']);
+Route::delete('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'destroy']);
+// End Supplier Bank Details
+
+// Representative
+Route::get('/representative', [RepresentativeController::class, 'index']);
+Route::post('/representative', [RepresentativeController::class, 'store']);
+Route::get('/representative/{representative}', [RepresentativeController::class, 'show']);
+Route::post('/representative/{representative}', [RepresentativeController::class, 'update']);
+Route::delete('/representative/{representative}', [RepresentativeController::class, 'destroy']);
+// End Representative
+
+// Additional Supplier Information
+Route::get('/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'index']);
+Route::post('/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'store']);
+Route::get('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'show']);
+Route::post('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'update']);
+Route::delete('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'destroy']);
+// End Additional Supplier Information
+
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signUp']);

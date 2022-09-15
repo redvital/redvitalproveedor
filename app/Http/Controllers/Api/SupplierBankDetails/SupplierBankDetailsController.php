@@ -1,22 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Api\Provider;
+namespace App\Http\Controllers\Api\SupplierBankDetails;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Provider;
+use App\Models\SupplierBankDetails;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProviderController extends Controller
+class SupplierBankDetailsController extends Controller
 {
 
     private $rules = [
-        'name' => 'required',
-        'email' => 'required',
-        'company' => 'required',
+        'bank' => 'required',
+        'currency' => 'required',
+        'method_of_payment' => 'required',
+        'account_type' => 'required',
+        'account_number' => 'required',
+        'account_holder' => 'required',
         'rif' => 'required',
-        'provider_type' => 'required',
+        'provider' => 'required'
     ];
 
     /**
@@ -26,8 +29,8 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        $provider = Provider::all();
-        return $this->showAll($provider);
+        $supplierBankDetails = SupplierBankDetails::all();
+        return $this->showAll($supplierBankDetails);
     }
 
     /**
@@ -43,10 +46,10 @@ class ProviderController extends Controller
         if ($validate->fails()) {
             return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
-        $provider = Provider::create(
+        $supplierBankDetails = SupplierBankDetails::create(
             $request->all(),
         );
-        return $this->showOne($provider, 201);
+        return $this->showOne($supplierBankDetails, 201);
     }
 
     /**
@@ -55,9 +58,9 @@ class ProviderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Provider $provider)
+    public function show(Request $request, SupplierBankDetails $supplierBankDetails)
     {
-        return $this->showOne($provider);
+        return $this->showOne($supplierBankDetails);
     }
 
     /**
@@ -67,15 +70,14 @@ class ProviderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Provider $provider)
+    public function update(Request $request, SupplierBankDetails $supplierBankDetails)
     {
-
         $validate = Validator::make($request->all(), $this->rules);
         if ($validate->fails()) {
             return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
-        $provider->update($request->all());
-        return $this->showOne($provider);
+        $supplierBankDetails->update($request->all());
+        return $this->showOne($supplierBankDetails);
     }
 
     /**
@@ -84,9 +86,9 @@ class ProviderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Provider $provider)
+    public function destroy(SupplierBankDetails $supplierBankDetails)
     {
-        $provider->delete();
-        return $this->showOne($provider);
+        $supplierBankDetails->delete();
+        return $this->showOne($supplierBankDetails);
     }
 }

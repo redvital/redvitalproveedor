@@ -1,22 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Api\Provider;
+namespace App\Http\Controllers\Api\AdditionalSupplierInformation;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Provider;
+use App\Models\AdditionalSupplierInformation;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProviderController extends Controller
+class AdditionalSupplierInformationController extends Controller
 {
 
     private $rules = [
-        'name' => 'required',
-        'email' => 'required',
-        'company' => 'required',
-        'rif' => 'required',
-        'provider_type' => 'required',
+        'fiscal_address' => 'required',
+        'state' => 'required',
+        'postal_code' => 'required',
+        'commercial_name' => 'required',
+        'payment_condition' => 'required',
+        'representative_id' => 'required',
+        'supplier_id' => 'required'
     ];
 
     /**
@@ -26,8 +28,8 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        $provider = Provider::all();
-        return $this->showAll($provider);
+        $additionalSupplierInformation = AdditionalSupplierInformation::all();
+        return $this->showAll($additionalSupplierInformation);
     }
 
     /**
@@ -43,10 +45,10 @@ class ProviderController extends Controller
         if ($validate->fails()) {
             return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
-        $provider = Provider::create(
+        $additionalSupplierInformation = AdditionalSupplierInformation::create(
             $request->all(),
         );
-        return $this->showOne($provider, 201);
+        return $this->showOne($additionalSupplierInformation, 201);
     }
 
     /**
@@ -55,9 +57,9 @@ class ProviderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Provider $provider)
+    public function show(Request $request, AdditionalSupplierInformation $additionalSupplierInformation)
     {
-        return $this->showOne($provider);
+        return $this->showOne($additionalSupplierInformation);
     }
 
     /**
@@ -67,15 +69,14 @@ class ProviderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Provider $provider)
+    public function update(Request $request, AdditionalSupplierInformation $additionalSupplierInformation)
     {
-
         $validate = Validator::make($request->all(), $this->rules);
         if ($validate->fails()) {
             return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
-        $provider->update($request->all());
-        return $this->showOne($provider);
+        $additionalSupplierInformation->update($request->all());
+        return $this->showOne($additionalSupplierInformation);
     }
 
     /**
@@ -84,9 +85,9 @@ class ProviderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Provider $provider)
+    public function destroy(AdditionalSupplierInformation $additionalSupplierInformation)
     {
-        $provider->delete();
-        return $this->showOne($provider);
+        $additionalSupplierInformation->delete();
+        return $this->showOne($additionalSupplierInformation);
     }
 }
