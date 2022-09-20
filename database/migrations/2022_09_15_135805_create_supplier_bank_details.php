@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('account_holder');
             $table->string('rif');
             $table->text('observations');
-            $table->foreignId('provider')->references('id')->on('providers')->onDelete("cascade");
+            $table->foreignId('provider_id')->references('id')->on('providers')->onDelete("cascade");
             $table->timestamps();
         });
     }

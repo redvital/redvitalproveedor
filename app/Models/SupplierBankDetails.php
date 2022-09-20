@@ -17,6 +17,6 @@ class SupplierBankDetails extends Model
         'account_holder',
         'rif',
         'observations',
-        'provider'
+        'provider_id'
     ];
 }

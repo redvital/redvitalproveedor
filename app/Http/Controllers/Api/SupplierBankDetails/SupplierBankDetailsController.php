@@ -19,7 +19,7 @@ class SupplierBankDetailsController extends Controller
         'account_number' => 'required',
         'account_holder' => 'required',
         'rif' => 'required',
-        'provider' => 'required'
+        'provider_id' => 'required'
     ];
 
     /**
