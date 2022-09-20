@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('account_number');
             $table->string('account_holder');
             $table->string('rif');
-            $table->text('observations');
+            $table->text('observations')->nullable();
             $table->foreignId('provider_id')->references('id')->on('providers')->onDelete("cascade");
             $table->timestamps();
         });

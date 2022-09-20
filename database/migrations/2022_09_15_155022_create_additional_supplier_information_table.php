@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('fiscal_address');
             $table->string('state');
             $table->string('postal_code');
-            $table->string('web_page');
+            $table->string('web_page')->nullable();
             $table->string('commercial_name');
             $table->string('payment_condition');
             $table->boolean('retention');
