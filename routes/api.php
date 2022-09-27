@@ -32,6 +32,7 @@ Route::delete('/category/{category}', [CategoryController::class, 'destroy']);
 Route::get('/provider', [ProviderController::class, 'index']);
 Route::post('/provider', [ProviderController::class, 'store']);
 Route::get('/provider/{provider}', [ProviderController::class, 'show']);
+Route::post('/provider/{provider}/detail-back', [ProviderController::class, 'detail']);
 Route::post('/provider/{provider}', [ProviderController::class, 'update']);
 Route::delete('/provider/{provider}', [ProviderController::class, 'destroy']);
 //End Providers
