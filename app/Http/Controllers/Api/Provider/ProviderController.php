@@ -21,13 +21,6 @@ class ProviderController extends Controller
         'provider_type' => 'required',
     ];
 
-    private $productProiderRules = [
-        'product_id' => 'required',
-        'provider_id' => 'required',
-        'commercialized' => 'required',
-        'approved' => 'required',
-    ];
-
     /**
      * Display a listing of the resource.
      *

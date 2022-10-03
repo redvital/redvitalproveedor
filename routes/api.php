@@ -94,9 +94,7 @@ Route::delete('/additionalsupplierinformation/{additionalSupplierInformation}', 
 
 // Products Provider
 Route::get('/supplier/{supplier_id}/products', [ProductProviderController::class, 'index']);
-//Route::get('/supplier/{supplier_id}/products/commercialized/{commercialized}', [ProductProviderController::class, 'showCommercializedProduct']);
-//Route::get('/supplier/{supplier_id}/products/approved/{approved}', [ProductProviderController::class, 'showApprovedProduct']);
-//Route::post('/supplier/{supplier_id}/products, [ProviderController::class, 'storeProductProvider']);
+Route::post('/supplier/{supplier_id}/products', [ProductProviderController::class, 'store']);
 
 // End Products Provider
 
