@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Provider\ProviderController;
 use App\Http\Controllers\Api\SupplierBankDetails\SupplierBankDetailsController;
 use App\Http\Controllers\Api\Representative\RepresentativeController;
 use App\Http\Controllers\Api\AdditionalSupplierInformation\AdditionalSupplierInformationController;
+use App\Http\Controllers\Api\Provider\ProductProvider\ProductProviderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +33,6 @@ Route::delete('/category/{category}', [CategoryController::class, 'destroy']);
 Route::get('/provider', [ProviderController::class, 'index']);
 Route::post('/provider', [ProviderController::class, 'store']);
 Route::get('/provider/{provider}', [ProviderController::class, 'show']);
-Route::post('/provider/{provider}/detail-back', [ProviderController::class, 'detail']);
 Route::post('/provider/{provider}', [ProviderController::class, 'update']);
 Route::delete('/provider/{provider}', [ProviderController::class, 'destroy']);
 //End Providers
@@ -93,9 +93,10 @@ Route::delete('/additionalsupplierinformation/{additionalSupplierInformation}', 
 // End Additional Supplier Information
 
 // Products Provider
-Route::get('/supplier/{supplier_id}/products', [ProviderController::class, 'showProductProvider']);
-Route::get('/supplier/{supplier_id}/products/commercialized/{commercialized}', [ProviderController::class, 'showCommercializedProduct']);
-Route::get('/supplier/{supplier_id}/products/approved/{approved}', [ProviderController::class, 'showApprovedProduct']);
+Route::get('/supplier/{supplier_id}/products', [ProductProviderController::class, 'index']);
+//Route::get('/supplier/{supplier_id}/products/commercialized/{commercialized}', [ProductProviderController::class, 'showCommercializedProduct']);
+//Route::get('/supplier/{supplier_id}/products/approved/{approved}', [ProductProviderController::class, 'showApprovedProduct']);
+//Route::post('/supplier/{supplier_id}/products, [ProviderController::class, 'storeProductProvider']);
 
 // End Products Provider
 
