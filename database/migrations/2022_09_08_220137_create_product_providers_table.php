@@ -19,6 +19,8 @@ return new class extends Migration
             ->on('products');
             $table->foreignId('provider_id')->references('id')
             ->on('providers');
+            $table->boolean('approved')->default(0);
+            $table->boolean('commercialized')->default(0);
             $table->timestamps();
         });
     }

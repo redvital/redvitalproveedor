@@ -92,6 +92,13 @@ Route::post('/additionalsupplierinformation/{additionalSupplierInformation}', [A
 Route::delete('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'destroy']);
 // End Additional Supplier Information
 
+// Products Provider
+Route::get('/supplier/{supplier_id}/products', [ProviderController::class, 'showProductProvider']);
+Route::get('/supplier/{supplier_id}/products/commercialized/{commercialized}', [ProviderController::class, 'showCommercializedProduct']);
+Route::get('/supplier/{supplier_id}/products/approved/{approved}', [ProviderController::class, 'showApprovedProduct']);
+
+// End Products Provider
+
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signUp']);
