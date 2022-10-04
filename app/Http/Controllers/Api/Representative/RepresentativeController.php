@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Representative;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Models\Provider;
 class RepresentativeController extends Controller
 {
 
@@ -34,7 +34,7 @@ class RepresentativeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Provider $supplier_id)
     {
         $validate = Validator::make($request->all(), $this->rules);
 
@@ -42,7 +42,12 @@ class RepresentativeController extends Controller
             return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
         $representative = Representative::create(
-            $request->all(),
+            [
+                'commercial_register' => $request->commercial_register,
+                'representatives_document' => $request->representatives_document,
+                'rif' => $request->rif,
+                'supplier_id' => $supplier_id->id
+            ]
         );
         return $this->showOne($representative, 201);
     }
