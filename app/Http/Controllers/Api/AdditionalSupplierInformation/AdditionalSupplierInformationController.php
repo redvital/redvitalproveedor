@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\AdditionalSupplierInformation;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\Provider;
 
 class AdditionalSupplierInformationController extends Controller
 {
@@ -17,8 +18,6 @@ class AdditionalSupplierInformationController extends Controller
         'postal_code' => 'required',
         'commercial_name' => 'required',
         'payment_condition' => 'required',
-        'representative_id' => 'required',
-        'supplier_id' => 'required'
     ];
 
     /**
@@ -38,7 +37,7 @@ class AdditionalSupplierInformationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Provider $supplier_id)
     {
         $validate = Validator::make($request->all(), $this->rules);
 
@@ -46,7 +45,21 @@ class AdditionalSupplierInformationController extends Controller
             return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
         $additionalSupplierInformation = AdditionalSupplierInformation::create(
-            $request->all(),
+            [
+                'fiscal_address' => $request->fiscal_address,
+                'state' => $request->state,
+                'postal_code' => $request->postal_code,
+                'web_page' => $request->web_page,
+                'commercial_name' => $request->commercial_name,
+                'payment_condition' => $request->payment_condition,
+                'retention' => $request->retention,
+                'consignment' => $request->consignment,
+                'representative_id' => $request->representative_id,
+                'supplier_id' => $supplier_id->id,
+                'rif' => $request->rif,
+                'commercial_register' => $request->commercial_register,
+                'identification_document' => $request->identification_document,
+            ]
         );
         return $this->showOne($additionalSupplierInformation, 201);
     }

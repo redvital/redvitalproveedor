@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Api\Provider;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Provider;
-use App\Models\SupplierBankDetails;
+use App\Models\ProductProvider;
+use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,17 +20,6 @@ class ProviderController extends Controller
         'rif' => 'required',
         'provider_type' => 'required',
     ];
-
-    private $rulesDetails = [
-        'bank' => 'required',
-        'currency' => 'required',
-        'method_of_payment' => 'required',
-        'account_type' => 'required',
-        'account_number' => 'required',
-        'account_holder' => 'required',
-        'rif' => 'required',
-    ];
-
 
     /**
      * Display a listing of the resource.
@@ -108,4 +98,3 @@ class ProviderController extends Controller
     }
 }
 
-// hola

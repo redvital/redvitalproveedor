@@ -11,6 +11,7 @@ class Representative extends Model
     protected $fillable = [
         'commercial_register',
         'rif',
-        'representatives_document'
+        'representatives_document',
+        'supplier_id'
     ];
 }

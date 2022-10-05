@@ -11,6 +11,8 @@ class ProductProvider extends Model
     protected $fillable = [
         'product_id',
         'provider_id',
+        'commercialized',
+        'approved'
     ];
 
     public function provider()

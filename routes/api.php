@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\Provider\ProviderController;
 use App\Http\Controllers\Api\SupplierBankDetails\SupplierBankDetailsController;
 use App\Http\Controllers\Api\Representative\RepresentativeController;
 use App\Http\Controllers\Api\AdditionalSupplierInformation\AdditionalSupplierInformationController;
+use App\Http\Controllers\Api\Provider\ProductProvider\ProductProviderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +33,6 @@ Route::delete('/category/{category}', [CategoryController::class, 'destroy']);
 Route::get('/provider', [ProviderController::class, 'index']);
 Route::post('/provider', [ProviderController::class, 'store']);
 Route::get('/provider/{provider}', [ProviderController::class, 'show']);
-Route::post('/provider/{provider}/detail-back', [ProviderController::class, 'detail']);
 Route::post('/provider/{provider}', [ProviderController::class, 'update']);
 Route::delete('/provider/{provider}', [ProviderController::class, 'destroy']);
 //End Providers
@@ -70,7 +70,7 @@ Route::delete('/line/{line}', [LineController::class, 'destroy']);
 
 // Supplier Bank Details
 Route::get('/supplierbankdetails', [SupplierBankDetailsController::class, 'index']);
-Route::post('/supplierbankdetails', [SupplierBankDetailsController::class, 'store']);
+Route::post('/provider/{supplier_id}/supplierbankdetails', [SupplierBankDetailsController::class, 'store']);
 Route::get('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'show']);
 Route::post('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'update']);
 Route::delete('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'destroy']);
@@ -78,7 +78,7 @@ Route::delete('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetails
 
 // Representative
 Route::get('/representative', [RepresentativeController::class, 'index']);
-Route::post('/representative', [RepresentativeController::class, 'store']);
+Route::post('/provider/{supplier_id}/representative', [RepresentativeController::class, 'store']);
 Route::get('/representative/{representative}', [RepresentativeController::class, 'show']);
 Route::post('/representative/{representative}', [RepresentativeController::class, 'update']);
 Route::delete('/representative/{representative}', [RepresentativeController::class, 'destroy']);
@@ -86,11 +86,17 @@ Route::delete('/representative/{representative}', [RepresentativeController::cla
 
 // Additional Supplier Information
 Route::get('/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'index']);
-Route::post('/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'store']);
+Route::post('/provider/{supplier_id}/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'store']);
 Route::get('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'show']);
 Route::post('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'update']);
 Route::delete('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'destroy']);
 // End Additional Supplier Information
+
+// Products Provider
+Route::get('/supplier/{supplier_id}/products', [ProductProviderController::class, 'index']);
+Route::post('/supplier/{supplier_id}/products', [ProductProviderController::class, 'store']);
+
+// End Products Provider
 
 
 Route::post('login', [AuthController::class, 'login']);

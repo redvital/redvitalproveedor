@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\SupplierBankDetails;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\Provider;
 
 class SupplierBankDetailsController extends Controller
 {
@@ -18,9 +19,11 @@ class SupplierBankDetailsController extends Controller
         'account_type' => 'required',
         'account_number' => 'required',
         'account_holder' => 'required',
-        'rif' => 'required',
-        'provider_id' => 'required'
+        'rif' => 'required'
     ];
+
+
+    public $errorProviderNotFound = 'No provider found with this id';
 
     /**
      * Display a listing of the resource.
@@ -39,17 +42,26 @@ class SupplierBankDetailsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Provider $supplier_id)
     {
         $validate = Validator::make($request->all(), $this->rules);
 
         if ($validate->fails()) {
-            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+            return response()->json($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
-        $supplierBankDetails = SupplierBankDetails::create(
-            $request->all(),
-        );
-        return $this->showOne($supplierBankDetails, 201);
+            $supplierBankDetails = SupplierBankDetails::create(
+                [
+                    'bank' => $request->bank,
+                    'currency' => $request->currency,
+                    'method_of_payment' => $request->method_of_payment,
+                    'account_type' => $request->account_type,
+                    'account_number' => $request->account_number,
+                    'account_holder' => $request->account_holder,
+                    'rif' => $request->rif,
+                    'provider_id' => $supplier_id->id
+                ]
+            );
+            return $this->showOne($supplierBankDetails, 201);
     }
 
     /**

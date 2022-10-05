@@ -23,8 +23,11 @@ return new class extends Migration
             $table->string('payment_condition');
             $table->boolean('retention');
             $table->boolean('consignment');
-            $table->foreignId('representative_id')->constrained('representatives');
+            $table->foreignId('representative_id')->nullable()->constrained('representatives')->default(null);
             $table->foreignId('supplier_id')->constrained('providers');
+            $table->string('rif')->nullable();
+            $table->string('commercial_register')->nullable();
+            $table->string('identification_document')->nullable();
             $table->timestamps();
         });
     }

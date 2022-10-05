@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('commercial_register');
             $table->string('rif');
             $table->string('representatives_document');
+            $table->foreignId('supplier_id')->constrained('providers');
             $table->timestamps();
         });
     }
