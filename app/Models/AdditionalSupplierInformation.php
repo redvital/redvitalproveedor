@@ -9,6 +9,7 @@ class AdditionalSupplierInformation extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'supplier_id',
         'fiscal_address',
         'state',
         'postal_code',
@@ -18,6 +19,11 @@ class AdditionalSupplierInformation extends Model
         'retention',
         'consignment',
         'representative_id',
-        'supplier_id'
+
     ];
+
+    public function provider()
+    {
+        return $this->belongsTo(Provider::class, 'supplier_id');
+    }
 }

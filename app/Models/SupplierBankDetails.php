@@ -17,6 +17,11 @@ class SupplierBankDetails extends Model
         'account_holder',
         'rif',
         'observations',
-        'provider_id'
+        'supplier_id'
     ];
+
+    public function provider()
+    {
+        return $this->belongsTo(Provider::class, 'supplier_id');
+    }
 }

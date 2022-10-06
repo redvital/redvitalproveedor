@@ -9,6 +9,7 @@ use App\Models\ProductProvider;
 use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\ProviderResourse;
 
 class ProviderController extends Controller
 {
@@ -21,15 +22,18 @@ class ProviderController extends Controller
         'provider_type' => 'required',
     ];
 
+
+    public $errorRifFound = 'This rif is already registered';
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $provider = Provider::all();
-        return $this->showAll($provider);
+        $provider = ProviderResourse::collection(Provider::all());
+        return $this->showAllResources($provider);
     }
 
     /**
@@ -45,10 +49,17 @@ class ProviderController extends Controller
         if ($validate->fails()) {
             return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
-        $provider = Provider::create(
-            $request->all(),
-        );
-        return $this->showOne($provider, 201);
+
+        if ($this->existRifProvider($request->rif)) {
+            return $this->errorResponse($this->errorRifFound, Response::HTTP_BAD_REQUEST);
+        } else {
+
+            $provider = Provider::create(
+                $request->all(),
+            );
+            return $this->showOne($provider, 201);
+        }
+
     }
 
 
@@ -95,6 +106,11 @@ class ProviderController extends Controller
     {
         $provider->delete();
         return $this->showOne($provider);
+    }
+
+    public function existRifProvider($rif)
+    {
+        return Provider::where('rif', $rif)->first();
     }
 }
 

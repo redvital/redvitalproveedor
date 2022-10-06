@@ -8,6 +8,7 @@ use App\Models\SupplierBankDetails;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Provider;
+use App\Http\Resources\BankDetailsResourse;
 
 class SupplierBankDetailsController extends Controller
 {
@@ -30,10 +31,10 @@ class SupplierBankDetailsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Provider $supplier_id)
     {
-        $supplierBankDetails = SupplierBankDetails::all();
-        return $this->showAll($supplierBankDetails);
+        $supplierBankDetails = BankDetailsResourse::collection(SupplierBankDetails::where('supplier_id', $supplier_id->id)->get());
+        return $this->showAllResources($supplierBankDetails);
     }
 
     /**
@@ -58,7 +59,7 @@ class SupplierBankDetailsController extends Controller
                     'account_number' => $request->account_number,
                     'account_holder' => $request->account_holder,
                     'rif' => $request->rif,
-                    'provider_id' => $supplier_id->id
+                    'supplier_id' => $supplier_id->id
                 ]
             );
             return $this->showOne($supplierBankDetails, 201);
@@ -70,7 +71,7 @@ class SupplierBankDetailsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, SupplierBankDetails $supplierBankDetails)
+    public function show(Request $request, SupplierBankDetails $supplierBankDetails )
     {
         return $this->showOne($supplierBankDetails);
     }

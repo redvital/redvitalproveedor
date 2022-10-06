@@ -15,15 +15,15 @@ return new class extends Migration
     {
         Schema::create('supplier_bank_details', function (Blueprint $table) {
             $table->id();
-            $table->string('bank');
-            $table->string('currency');
+            $table->enum('bank', ['Mercantil','Banesco','Western Union']);
+            $table->enum('currency', ['BS','USD','EU']);
             $table->string('method_of_payment');
             $table->string('account_type');
             $table->string('account_number');
             $table->string('account_holder');
             $table->string('rif');
             $table->text('observations')->nullable();
-            $table->foreignId('provider_id')->references('id')->on('providers')->onDelete("cascade");
+            $table->foreignId('supplier_id')->references('id')->on('providers')->onDelete("cascade");
             $table->timestamps();
         });
     }

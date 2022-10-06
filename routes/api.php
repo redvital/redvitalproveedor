@@ -69,7 +69,7 @@ Route::delete('/line/{line}', [LineController::class, 'destroy']);
 // end line
 
 // Supplier Bank Details
-Route::get('/supplierbankdetails', [SupplierBankDetailsController::class, 'index']);
+Route::get('/provider/{supplier_id}/supplierbankdetails', [SupplierBankDetailsController::class, 'index']);
 Route::post('/provider/{supplier_id}/supplierbankdetails', [SupplierBankDetailsController::class, 'store']);
 Route::get('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'show']);
 Route::post('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'update']);
@@ -85,7 +85,7 @@ Route::delete('/representative/{representative}', [RepresentativeController::cla
 // End Representative
 
 // Additional Supplier Information
-Route::get('/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'index']);
+Route::get('/provider/{supplier_id}/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'index']);
 Route::post('/provider/{supplier_id}/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'store']);
 Route::get('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'show']);
 Route::post('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'update']);

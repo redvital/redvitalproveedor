@@ -16,4 +16,14 @@ class Provider extends Model
         'rif',
         'provider_type'
     ];
+
+    public function bankDetails()
+    {
+        return $this->hasMany(SupplierBankDetails::class, 'supplier_id');
+    }
+
+    public function supplierInformation()
+    {
+        return $this->hasMany(AdditionalSupplierInformation::class, 'supplier_id');
+    }
 }

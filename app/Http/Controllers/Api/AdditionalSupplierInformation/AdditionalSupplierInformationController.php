@@ -25,9 +25,9 @@ class AdditionalSupplierInformationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Provider $supplier_id)
     {
-        $additionalSupplierInformation = AdditionalSupplierInformation::all();
+        $additionalSupplierInformation = AdditionalSupplierInformation::where('supplier_id', $supplier_id->id)->get();
         return $this->showAll($additionalSupplierInformation);
     }
 

@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('additional_supplier_information', function (Blueprint $table) {
             $table->id();
             $table->string('fiscal_address');
-            $table->string('state');
+            $table->enum('state',['Amazonas', 'Anzoátegui', 'Apure', 'Aragua', 'Barinas', 'Bolívar', 'Carabobo', 'Cojedes', 'Delta Amacuro', 'Dependencias Federales', 'Distrito Federal', 'Falcón', 'Guárico', 'Lara', 'Mérida', 'Miranda','Monagas','Nueva Esparta', 'Portuguesa', 'Sucre', 'Táchira', 'Trujillo', 'Vargas','Yaracuy','Zulia']);
             $table->string('postal_code');
             $table->string('web_page')->nullable();
             $table->string('commercial_name');
-            $table->string('payment_condition');
+            $table->enum('payment_condition', [1,2,3,4,5]);
             $table->boolean('retention');
             $table->boolean('consignment');
             $table->foreignId('representative_id')->nullable()->constrained('representatives')->default(null);
