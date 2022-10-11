@@ -9,6 +9,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -43,34 +45,26 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $credentials = $request->only("email", "password");
+        Validator::make($credentials, [
             'email' => 'required|email',
-            'password' => 'required|min:8',
+            'password' => 'required',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'The data is invalid.',
-                'errors' => $validator->errors(),
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['error' => 'Los Datos Suministrado son incorrectos :C'], 401);
         }
 
-        $user = User::where('email', $request->email)->first();
+        $user = $request->user();
+        $tokenResult = $user->createToken('Personal Access Token');
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'message' => 'Invalid',
-                'errors' => [
-                    'password' => 'The password does not belong to the user account.',
-                ],
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
+        $token = $tokenResult->token;
+        $token->expires_at = Carbon::now()->addWeeks(1);
+        $token->save();
 
         return response()->json([
-            'access_token' => $user->createToken('api-token')->plainTextToken,
-            'type' => 'bearer',
-            'expired_in' => '',
-        ], Response::HTTP_OK);
+            'access_token' => $tokenResult->accessToken
+        ]);
     }
 
     public function me()
