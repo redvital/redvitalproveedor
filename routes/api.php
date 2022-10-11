@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\SupplierBankDetails\SupplierBankDetailsController;
 use App\Http\Controllers\Api\Representative\RepresentativeController;
 use App\Http\Controllers\Api\AdditionalSupplierInformation\AdditionalSupplierInformationController;
 use App\Http\Controllers\Api\Provider\ProductProvider\ProductProviderController;
+use App\Http\Controllers\Api\Stock\StockController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -98,6 +99,13 @@ Route::post('/supplier/{supplier_id}/products', [ProductProviderController::clas
 
 // End Products Provider
 
+// Stock
+Route::get('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::class , 'index']);
+Route::get('/stock/{stock_id}', [StockController::class , 'show']);
+Route::post('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::class , 'store']);
+Route::post('/store/{store_id}/supplier/{supplier_id}/stock/{stock_id}', [StockController::class , 'update']);
+Route::delete('/stock/{stock_id}', [StockController::class , 'destroy']);
+//End Stock
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signUp']);

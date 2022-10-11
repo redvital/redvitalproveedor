@@ -79,7 +79,7 @@ class ProductProviderController extends Controller
 
             $productsProvider = ProductProvider::create([
                 'product_id' => $product->id,
-                'provider_id' => $request->provider_id,
+                'provider_id' => $request->supplier_id->id,
             ]);
             return $this->showOne($product, 201);
         }else {
@@ -118,6 +118,6 @@ class ProductProviderController extends Controller
      */
     public function destroy($id)
     {
-        //
+
     }
 }

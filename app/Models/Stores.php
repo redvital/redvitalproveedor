@@ -14,4 +14,8 @@ class Stores extends Model
         'description',
         'code'
     ];
+
+    public function stock() {
+        return $this->hasMany(Stock::class, 'store_id');
+    }
 }
