@@ -24,6 +24,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
  */
+Route::post('login', [AuthController::class, 'login']);
+Route::post('signup', [AuthController::class, 'signUp']);
+Route::middleware('auth:api')->group(function () {
+
+Route::get('me', [AuthController::class, 'me']);
+Route::post('logout', [AuthController::class, 'logout']);
+
+
 Route::get('/category', [CategoryController::class, 'index']);
 Route::post('/category', [CategoryController::class, 'store']);
 Route::get('/category/{category}', [CategoryController::class, 'show']);
@@ -107,16 +115,8 @@ Route::post('/store/{store_id}/supplier/{supplier_id}/stock/{stock_id}', [StockC
 Route::delete('/stock/{stock_id}', [StockController::class , 'destroy']);
 //End Stock
 
-Route::post('login', [AuthController::class, 'login']);
-Route::post('signup', [AuthController::class, 'signUp']);
-// mover hacia el login
-// category
-
-// end category
-Route::group(['middleware' => 'auth:sanctum'], function () {
-
-    Route::prefix('auth')->group(function () {
-        Route::get('me', [AuthController::class, 'me']);
-        Route::post('logout', [AuthController::class, 'logout']);
-    });
+    
 });
+
+
+

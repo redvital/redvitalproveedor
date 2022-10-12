@@ -9,6 +9,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -43,50 +45,49 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $credentials = $request->only("email", "password");
+        $validator = Validator::make($credentials, [
             'email' => 'required|email',
-            'password' => 'required|min:8',
+            'password' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'The data is invalid.',
+                'message' => 'There are some fields that are required!',
                 'errors' => $validator->errors(),
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            ]);
         }
 
-        $user = User::where('email', $request->email)->first();
-
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'message' => 'Invalid',
-                'errors' => [
-                    'password' => 'The password does not belong to the user account.',
-                ],
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['error' => 'Los Datos Suministrado son incorrectos :C'], 401);
         }
+
+        $user = $request->user();
+        $tokenResult = $user->createToken('Personal Access Token');
+
+        $token = $tokenResult->token;
+        $token->expires_at = Carbon::now()->addWeeks(1);
+        $token->save();
 
         return response()->json([
-            'access_token' => $user->createToken('api-token')->plainTextToken,
-            'type' => 'bearer',
-            'expired_in' => '',
-        ], Response::HTTP_OK);
+            'access_token' => $tokenResult->accessToken
+        ]);
     }
 
     public function me()
     {
-
-        $user = auth()->user();
-
-        return response()->json($user, Response::HTTP_OK);
+        return response()->json(
+            Auth::user()
+        );
     }
 
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
+        $request->user()->token()->revoke();
 
         return response()->json([
-            'message' => 'You have successfully logged out!',
+            'message' => 'Successfully logged out'
         ]);
     }
 }
