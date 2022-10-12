@@ -24,7 +24,8 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
  */
-
+Route::post('login', [AuthController::class, 'login']);
+Route::post('signup', [AuthController::class, 'signUp']);
 Route::middleware('auth:api')->group(function () {
 
 Route::get('me', [AuthController::class, 'me']);
@@ -113,16 +114,9 @@ Route::post('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::
 Route::post('/store/{store_id}/supplier/{supplier_id}/stock/{stock_id}', [StockController::class , 'update']);
 Route::delete('/stock/{stock_id}', [StockController::class , 'destroy']);
 //End Stock
+
     
 });
 
 
-
-Route::post('login', [AuthController::class, 'login']);
-Route::post('signup', [AuthController::class, 'signUp']);
-
-// mover hacia el login
-// category
-
-// end category
 
