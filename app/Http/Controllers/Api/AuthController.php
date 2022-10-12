@@ -46,10 +46,17 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only("email", "password");
-        Validator::make($credentials, [
+        $validator = Validator::make($credentials, [
             'email' => 'required|email',
             'password' => 'required',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'There are some fields that are required!',
+                'errors' => $validator->errors(),
+            ]);
+        }
 
         if (!Auth::attempt($credentials)) {
             return response()->json(['error' => 'Los Datos Suministrado son incorrectos :C'], 401);
@@ -69,18 +76,18 @@ class AuthController extends Controller
 
     public function me()
     {
-
-        $user = auth()->user();
-
-        return response()->json($user, Response::HTTP_OK);
+        return response()->json(
+            Auth::user()
+        );
     }
 
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
+        $request->user()->token()->revoke();
 
         return response()->json([
-            'message' => 'You have successfully logged out!',
+            'message' => 'Successfully logged out'
         ]);
     }
 }
