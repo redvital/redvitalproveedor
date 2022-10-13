@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('supplier_bank_details', function (Blueprint $table) {
             $table->id();
-            $table->enum('bank', ['Mercantil','Banesco','Western Union']);
+            $table->string('bank');
             $table->enum('currency', ['BS','USD','EU']);
             $table->string('method_of_payment');
             $table->string('account_type');
