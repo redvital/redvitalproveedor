@@ -52,6 +52,7 @@ Route::post('/store', [StoreController::class, 'store']);
 Route::get('/store/{store}', [StoreController::class, 'show']);
 Route::post('/store/{store}', [StoreController::class, 'update']);
 Route::delete('/store/{store}', [StoreController::class, 'destroy']);
+Route::get('/store/{store_id}/products', [StoreController::class, 'store_products']);
 // end store
 
 // brand
@@ -115,7 +116,7 @@ Route::post('/store/{store_id}/supplier/{supplier_id}/stock/{stock_id}', [StockC
 Route::delete('/stock/{stock_id}', [StockController::class , 'destroy']);
 //End Stock
 
-    
+
 });
 
 

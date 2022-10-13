@@ -32,6 +32,8 @@ class ProductProviderController extends Controller
         'provider_id' => 'required',
     ];
 
+    public $errorSkuProvider = 'Sku Provider already exists';
+
     public function index(Request $request, ProductProvider $supplier_id){
 
         $approved = $request->query('approved');
@@ -65,6 +67,10 @@ class ProductProviderController extends Controller
     public function store(Request $request, Provider $supplier_id)
     {
         $validate = Validator::make($request->all(), $this->rules);
+
+        if ($this->existSku($request->sku_provider)) {
+            return $this->errorResponse($this->errorSkuProvider, Response::HTTP_BAD_REQUEST);
+        }
 
         $provider = Provider::where('id', $supplier_id->id)->get();
 
@@ -119,5 +125,10 @@ class ProductProviderController extends Controller
     public function destroy($id)
     {
 
+    }
+
+    public function existSku($sku)
+    {
+        return Product::where('sku_provider', $sku)->first();
     }
 }

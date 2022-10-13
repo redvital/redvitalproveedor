@@ -14,7 +14,7 @@ class SupplierBankDetailsController extends Controller
 {
 
     private $rules = [
-        'bank' => 'required',
+        'bank' => 'required|integer',
         'currency' => 'required',
         'method_of_payment' => 'required',
         'account_type' => 'required',

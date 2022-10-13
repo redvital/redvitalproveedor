@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api\Store;
 
 use App\Http\Controllers\Controller;
 use App\Models\Stores;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\ProductStore;
 
 class StoreController extends Controller
 {
@@ -82,5 +84,19 @@ class StoreController extends Controller
     {
         $store->delete();
         return $this->showOne($store);
+    }
+
+    public function store_products(Request $request, Stores $store_id) {
+
+        $store = Stores::where('id', $store_id->id)->first();
+
+        $products_store = ProductStore::collection(Stock::where('store_id', $store_id->id)->get());
+
+        $store_provider = [
+            'store' => $store,
+            'products' => $products_store
+        ];
+
+        return ($store_provider);
     }
 }
