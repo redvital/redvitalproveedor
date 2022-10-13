@@ -115,9 +115,9 @@ Route::post('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::
 Route::post('/store/{store_id}/supplier/{supplier_id}/stock/{stock_id}', [StockController::class , 'update']);
 Route::delete('/stock/{stock_id}', [StockController::class , 'destroy']);
 //End Stock
-
-
 });
+
+// finish
 
 
 
