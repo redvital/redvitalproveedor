@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\ProductStore;
-
+use App\Http\Resources\StoreProviderResource;
 class StoreController extends Controller
 {
     private $rules = [
@@ -90,13 +90,26 @@ class StoreController extends Controller
 
         $store = Stores::where('id', $store_id->id)->first();
 
-        $products_store = ProductStore::collection(Stock::where('store_id', $store_id->id)->get());
+        $products_store = StoreProvider::collection(Stock::where('store_id', $store_id->id)->get());
 
         $store_provider = [
             'store' => $store,
             'products' => $products_store
         ];
 
+        return ($store_provider);
+    }
+
+    public function store_providers(Request $request, Stores $store_id) {
+
+        $store = Stores::where('id', $store_id->id)->first();
+
+        $provider_store = StoreProviderResource::collection(Stock::where('store_id', $store_id->id)->get());
+
+        $store_provider = [
+            'store' => $store,
+            'providers' => $provider_store
+        ];
         return ($store_provider);
     }
 }

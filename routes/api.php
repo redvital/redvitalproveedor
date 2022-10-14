@@ -53,6 +53,7 @@ Route::get('/store/{store}', [StoreController::class, 'show']);
 Route::post('/store/{store}', [StoreController::class, 'update']);
 Route::delete('/store/{store}', [StoreController::class, 'destroy']);
 Route::get('/store/{store_id}/products', [StoreController::class, 'store_products']);
+Route::get('/store/{store_id}/providers', [StoreController::class, 'store_providers']);
 // end store
 
 // brand
