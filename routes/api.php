@@ -26,6 +26,13 @@ use Illuminate\Support\Facades\Route;
  */
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signUp']);
+
+//Pre Register Providers //
+Route::post('/provider', [ProviderController::class, 'store']);
+Route::post('/provider/{supplier_id}/supplierbankdetails', [SupplierBankDetailsController::class, 'store']);
+Route::post('/provider/{supplier_id}/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'store']);
+//End Pre Register Providers //
+
 Route::middleware('auth:api')->group(function () {
 
 Route::get('me', [AuthController::class, 'me']);
@@ -40,7 +47,6 @@ Route::delete('/category/{category}', [CategoryController::class, 'destroy']);
 
 // Providers
 Route::get('/provider', [ProviderController::class, 'index']);
-Route::post('/provider', [ProviderController::class, 'store']);
 Route::get('/provider/{provider}', [ProviderController::class, 'show']);
 Route::post('/provider/{provider}', [ProviderController::class, 'update']);
 Route::delete('/provider/{provider}', [ProviderController::class, 'destroy']);
@@ -80,7 +86,6 @@ Route::delete('/line/{line}', [LineController::class, 'destroy']);
 
 // Supplier Bank Details
 Route::get('/provider/{supplier_id}/supplierbankdetails', [SupplierBankDetailsController::class, 'index']);
-Route::post('/provider/{supplier_id}/supplierbankdetails', [SupplierBankDetailsController::class, 'store']);
 Route::get('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'show']);
 Route::post('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'update']);
 Route::delete('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'destroy']);
@@ -96,7 +101,6 @@ Route::delete('/representative/{representative}', [RepresentativeController::cla
 
 // Additional Supplier Information
 Route::get('/provider/{supplier_id}/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'index']);
-Route::post('/provider/{supplier_id}/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'store']);
 Route::get('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'show']);
 Route::post('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'update']);
 Route::delete('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'destroy']);
