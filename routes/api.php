@@ -109,6 +109,10 @@ Route::delete('/additionalsupplierinformation/{additionalSupplierInformation}', 
 // Products Provider
 Route::get('/supplier/{supplier_id}/products', [ProductProviderController::class, 'index']);
 Route::post('/supplier/{supplier_id}/products', [ProductProviderController::class, 'store']);
+/* importar productos */
+Route::post('/supplier/{supplier_id}/importar-producto', [ProductProviderController::class, 'importProduct']);
+/* exportar productos */
+Route::get('/export/{producto}', [ProductProviderController::class, 'exportProduct']);
 
 // End Products Provider
 
@@ -119,6 +123,7 @@ Route::post('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::
 Route::post('/store/{store_id}/supplier/{supplier_id}/stock/{stock_id}', [StockController::class , 'update']);
 Route::delete('/stock/{stock_id}', [StockController::class , 'destroy']);
 //End Stock
+
 });
 
 // finish
