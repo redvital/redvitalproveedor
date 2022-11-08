@@ -73,7 +73,7 @@ class Handler extends ExceptionHandler
             return $this->errorResponse("No existe ninguna incidencia de {$modelo} con el id solicitado", 404);
         }
 
-       /*  if($exception instanceof AuthenticationException) 
+        if($exception instanceof AuthenticationException)
         {
             return $this->unauthenticated($request, $exception);
         } */
