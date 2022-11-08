@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
-
+    
     use ApiResponse;
     /**
      * A list of the exception types that are not reported.
@@ -61,7 +61,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-
+        
         if($exception instanceof ValidationException)
         {
             return $this->convertValidationExceptionToResponse($exception, $request);
@@ -69,27 +69,27 @@ class Handler extends ExceptionHandler
 
         if($exception instanceof ModelNotFoundException)
         {
-            $model = strtolower(class_basename($exception->getModel()));
-            return $this->errorResponse("There is no incidence of {$model} with the requested id", 404);
+            $modelo = strtolower(class_basename($exception->getModel()));
+            return $this->errorResponse("No existe ninguna incidencia de {$modelo} con el id solicitado", 404);
         }
 
-        if($exception instanceof AuthenticationException)
+        if($exception instanceof AuthenticationException) 
         {
             return $this->unauthenticated($request, $exception);
         }
         if($exception instanceof AuthorizationException)
         {
-            return $this->errorResponse('You do not have permission to execute this action', 403);
+            return $this->errorResponse('No posee permiso para ejecutar esta accion', 403);
         }
 
         if($exception instanceof NotFoundHttpException)
         {
-            return $this->errorResponse('The specified url was not found', 404);
+            return $this->errorResponse('No se encontro la url especificada', 404);
         }
 
         if($exception instanceof MethodNotAllowedHttpException)
         {
-            return $this->errorResponse('The specified method is not valid', 405);
+            return $this->errorResponse('El metodo especificado no es valido', 405);
         }
         if($exception instanceof HttpException)
         {
@@ -101,9 +101,9 @@ class Handler extends ExceptionHandler
             $codigo = $exception->errorInfo[1];
             if($codigo == 1451)
             {
-                return $this->errorResponse('The resource cannot be permanently deleted because it is related to something else', 409);
+                return $this->errorResponse('No se puede eliminar de forma permanete el recurso porque esta relacionado con algun otro', 409);
             }
-
+            
         }
 
         if(config('app.debug'))
@@ -112,18 +112,18 @@ class Handler extends ExceptionHandler
             return parent::render($request, $exception);
         }
 
-        return $this->errorResponse('Unexpected failure, try again later',500);
+        return $this->errorResponse('Falla inesperad, intente luego',500);
 
 
     }
 
     protected function convertValidationExceptionToResponse(ValidationException $e, $request)
     {
-
-
+      
+        
         $error = $e->validator->errors()->getMessages();
         return $this->errorResponse($error, 422);
-
+        
     }
 
 
