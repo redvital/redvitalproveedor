@@ -15,38 +15,38 @@ use Kreait\Firebase\Messaging\WebPushConfig;
 
 trait ApiResponse
 {
-    private function successResponse($data, $code)
-    {
-        return response()->json($data, $code);
-    }
-    protected function successMessage($data, $code = Response::HTTP_ACCEPTED)
-    {
-        return response()->json(['data' => $data], $code);
-    }
-    
-    protected function errorResponse($message, $code = Response::HTTP_BAD_REQUEST)
-    {
-        return response()->json(['error' => $message, 'code' => $code], $code);
-    }
 
-    protected function showAll(Collection $collection, $code = 200)
-    {
-        return $this->successResponse(['data' => $collection->sortBy('id')->values()->all()], $code);
-    }
+        private function successResponse($data, $code)
+        {
+            return response()->json($data, $code);
+        }
     
-    protected function showAllResources(ResourceCollection $collection, $code = 200)
-    {
-
-        return $this->successResponse(['data' => $collection->sortBy('id')->values()->all()], $code);
-    }
-    protected function showOne(Model $instace, $code = 200)
-    {
-        return $this->successResponse(['data' => $instace], $code);
-    }
-    protected function showOneResource(JsonResource $instace, $code = 200)
-    {
-        return $this->successResponse(['data' => $instace], $code);
-    }
+        private function errorResponse($messeger, $code)
+        {
+            return response()->json(['error' => $messeger, 'code' => $code], $code);
+        }
+    
+        protected function showAll(Collection $collection, $code = 200)
+        {
+            return $this->successResponse(['data' => $collection->sortBy("id")->values()->all()], $code);
+        }
+        protected function showAllResources(ResourceCollection $collection, $code = 200)
+        {
+            return $this->successResponse(['data' => $collection->sortBy("id")->values()->all()], $code);
+        }
+        protected function showOne(Model $instace, $code = 200)
+        {
+            return $this->successResponse(['data' => $instace], $code);
+        }
+        protected function showOneResource(JsonResource $instace, $code = 200)
+        {
+            return $this->successResponse(['data' => $instace], $code);
+        }
+        protected function successMessages($data, $code)
+        {
+            return response()->json($data, $code);
+        }
+    
     protected function showAllResourcesPaginate(ResourceCollection $collection, $code = 200)
     {
         /* $collection = $this->paginate($collection); */
