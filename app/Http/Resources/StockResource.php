@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Provider;
+use App\Models\Stores;
 
 class StockResource extends JsonResource
 {

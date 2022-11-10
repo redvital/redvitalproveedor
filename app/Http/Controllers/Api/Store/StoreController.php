@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\ProductStore;
+use App\Http\Resources\StoreResource;
 
 class StoreController extends Controller
 {
@@ -24,8 +25,8 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $store = Stores::all();
-        return $this->showAll($store);
+        $store = StoreResource::collection(Stores::all());
+        return $this->paginate($store);
     }
 
     /**

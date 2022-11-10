@@ -8,6 +8,7 @@ use App\Models\Representative;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Provider;
+use App\Http\Resources\RepresentativeResource;
 class RepresentativeController extends Controller
 {
 
@@ -24,8 +25,8 @@ class RepresentativeController extends Controller
      */
     public function index()
     {
-        $representative = Representative::all();
-        return $this->showAll($representative);
+        $representative = RepresentativeResource::collection(Representative::all());
+        return $this->paginate($representative);
     }
 
     /**

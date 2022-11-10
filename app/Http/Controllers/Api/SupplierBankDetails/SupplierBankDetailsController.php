@@ -34,7 +34,7 @@ class SupplierBankDetailsController extends Controller
     public function index(Provider $supplier_id)
     {
         $supplierBankDetails = BankDetailsResourse::collection(SupplierBankDetails::where('supplier_id', $supplier_id->id)->get());
-        return $this->showAllResources($supplierBankDetails);
+        return $this->paginate($supplierBankDetails);
     }
 
     /**

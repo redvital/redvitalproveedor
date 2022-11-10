@@ -7,6 +7,7 @@ use App\Models\SubBrand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\SubBrandResource;
 
 class SubBrandController extends Controller
 {
@@ -24,8 +25,8 @@ class SubBrandController extends Controller
      */
     public function index()
     {
-        $subBrand = SubBrand::all();
-        return $this->showAll($subBrand);
+        $subBrand = SubBrandResource::collection(SubBrand::all());
+        return $this->paginate($subBrand);
     }
 
     /**
