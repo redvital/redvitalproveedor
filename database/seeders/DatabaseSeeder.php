@@ -14,8 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\Producto::factory(20)->create();
+        $this->call(StateSeeder::class);
     }
 }
 
 // git add test
+
