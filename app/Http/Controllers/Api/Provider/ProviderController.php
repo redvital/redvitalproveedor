@@ -33,7 +33,7 @@ class ProviderController extends Controller
     public function index()
     {
         $provider = ProviderResourse::collection(Provider::all());
-        return $this->showAllResources($provider);
+        return $this->paginate($provider);
     }
 
     /**
