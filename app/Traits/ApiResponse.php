@@ -70,6 +70,48 @@ trait ApiResponse
     return $collection->sortBy('id')->values()->all();
     } */
 
+    // protected function sendNotifications($usuarios, $notificacion)
+    // {
+    //     // Enviar las notificaciones internas de la APP
+    //     \Illuminate\Support\Facades\Notification::send($usuarios, $notificacion);
+
+    //     // Obtener los tokens de los usuarios a los que se les enviara la notificación
+    //     //$deviceTokens = $usuarios->whereNotNull('device_key')->pluck('device_key')->all();
+    //     $deviceTokens = $usuarios->pluck('fcmTokens')->collapse()->pluck("value")->all();
+    //     if (count($deviceTokens) === 0) {
+    //         return;
+    //     }
+
+    //     $messaging = app('firebase.messaging');
+
+    //     // La configuración de la notificación web push
+    //     $config = WebPushConfig::fromArray([
+    //         'fcm_options' => [
+    //             'link' => $notificacion->link,
+    //         ],
+    //     ]);
+
+    //     // Crear el mensaje de Firebase Messaging
+    //     $message = CloudMessage::new ()
+    //         ->withNotification(Notification::create($notificacion->title, $notificacion->text))
+    //         ->withHighestPossiblePriority()
+    //         ->withWebPushConfig($config);
+
+    //     // Elimninar los tokens que ya no son validos
+    //     $result = $messaging->validateRegistrationTokens($deviceTokens);
+    //     foreach ($result["unknown"] as $token) {
+    //         WebNotificationController::deleteTokenByName($token);
+    //     }
+    //     foreach ($result["invalid"] as $token) {
+    //         WebNotificationController::deleteTokenByName($token);
+    //     }
+
+
+    
+    //     // Enviar las notificaciones
+    //     $messaging->sendMulticast($message, $deviceTokens);
+    // }
+
   
 
 }
