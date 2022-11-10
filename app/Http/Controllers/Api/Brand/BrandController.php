@@ -7,7 +7,7 @@ use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Http\Resources\BrandResource;
 class BrandController extends Controller
 {
 
@@ -23,8 +23,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brand = Brand::all();
-        return $this->showAll($brand);
+        $brand =  BrandResource::collection (Brand::all());
+        return $this->paginate($brand);
     }
 
     /**

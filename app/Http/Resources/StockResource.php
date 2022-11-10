@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Provider;
+use App\Models\Stores;
 
 class StockResource extends JsonResource
 {
@@ -15,7 +17,7 @@ class StockResource extends JsonResource
     public function toArray($request)
     {
 
-    $stock = [
+    $stock_data = [
             'stock' => [
             'id' => $this->id,
             'quantity' => $this->quantity,
@@ -25,8 +27,8 @@ class StockResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'products' => $this->product()->get(),
-        ]];
-
-        return $stock ;
+        ]
+    ];
+        return $stock_data ;
     }
 }

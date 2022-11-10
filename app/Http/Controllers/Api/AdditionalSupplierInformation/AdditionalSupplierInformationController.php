@@ -8,6 +8,7 @@ use App\Models\AdditionalSupplierInformation;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Provider;
+use App\Http\Resources\AdditionalSupplierInformationResource;
 
 class AdditionalSupplierInformationController extends Controller
 {
@@ -27,8 +28,8 @@ class AdditionalSupplierInformationController extends Controller
      */
     public function index(Provider $supplier_id)
     {
-        $additionalSupplierInformation = AdditionalSupplierInformation::where('supplier_id', $supplier_id->id)->get();
-        return $this->showAll($additionalSupplierInformation);
+        $additionalSupplierInformation = AdditionalSupplierInformationResource::collection(AdditionalSupplierInformation::where('supplier_id', $supplier_id->id)->get());
+        return $this->paginate($additionalSupplierInformation);
     }
 
     /**

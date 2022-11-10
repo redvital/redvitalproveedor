@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
 {
@@ -17,8 +18,8 @@ class CategoryController extends Controller
     ];
     public function index()
     {
-        $category = Category::all();
-        return $this->showAll($category);
+        $category = CategoryResource::collection(Category::all());
+        return $this->paginate($category);
     }
 
     /**

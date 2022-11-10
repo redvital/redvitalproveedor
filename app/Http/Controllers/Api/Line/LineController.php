@@ -7,6 +7,7 @@ use App\Models\Line;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\LineResource;
 
 class LineController extends Controller
 {
@@ -22,8 +23,8 @@ class LineController extends Controller
      */
     public function index()
     {
-        $line = Line::all();
-        return $this->showAll($line);
+        $line = LineResource::collection(Line::all());
+        return $this->paginate($line);
     }
 
     /**

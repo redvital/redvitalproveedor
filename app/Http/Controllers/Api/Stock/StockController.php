@@ -27,20 +27,21 @@ class StockController extends Controller
 
     public function index(Request $request, Stores $store_id ,Provider $supplier_id)
     {
-        $stock = StockResource::collection(Stock::where('store_id', $store_id->id)->where('supplier_id', $supplier_id->id)->get());
+        $stock_data = StockResource::collection(Stock::where('store_id', $store_id->id)->where('supplier_id', $supplier_id->id)->get());
 
-        $provider = Provider::where('id', $supplier_id->id)->first();
+        $stock = $this->paginate($stock_data);
 
-        $store = Stores::where('id', $store_id->id)->first();
+        $provider = Provider::where('id',$request->supplier_id->id)->first();
+
+        $store = Stores::where('id', $request->store_id->id)->first();
 
         $store_provider = [
-            'stock' => $stock,
+            'stock_data' => $stock,
             'provider' => $provider,
             'store' => $store
         ];
 
-        return ($store_provider);
-
+        return $store_provider;
     }
 
     /**

@@ -9,6 +9,7 @@ use App\Models\ProductProvider;
 use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\ProductProviderResource;
 
 class ProductProviderController extends Controller
 {
@@ -51,8 +52,8 @@ class ProductProviderController extends Controller
             $productsProvider = $pivot->map(function ($element) {
                 return  $element->product_id;
             });
-            $products = Product::whereIn('id', $productsProvider)->get();
-            return $this->showAll($products);
+            $products = ProductProviderResource::collection(Product::whereIn('id', $productsProvider)->get());
+            return $this->paginate($products);
         }else {
             return $this->errorResponse('No products found for this supplier', Response::HTTP_BAD_REQUEST);
         }
