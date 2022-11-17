@@ -32,45 +32,14 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/bank', [BankController::class, 'index']);
-Route::post('/bank', [BankController::class, 'store']);
-Route::get('/bank/{bank}', [BankController::class, 'show']);
-Route::post('/bank/{bank}', [BankController::class, 'update']);
-Route::delete('/bank/{bank}', [BankController::class, 'destroy']);
-Route::get('/bank/ddlist', [BankController::class, 'ddlist']);
+// Stock
+Route::get('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::class , 'index']);
+Route::get('/stock/{stock_id}', [StockController::class , 'show']);
+Route::post('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::class , 'store']);
+Route::post('/store/{store_id}/supplier/{supplier_id}/stock/{stock_id}', [StockController::class , 'update']);
+Route::delete('/stock/{stock_id}', [StockController::class , 'destroy']);
+//End Stock
 
-Route::get('/coin', [CoinController::class, 'index']);
-Route::post('/coin', [CoinController::class, 'store']);
-Route::get('/coin/{coin}', [CoinController::class, 'show']);
-Route::post('/coin/{coin}', [CoinController::class, 'update']);
-Route::delete('/coin/{coin}', [CoinController::class, 'destroy']);
-
-Route::get('/condition', [ConditionController::class, 'index']);
-Route::post('/condition', [ConditionController::class, 'store']);
-Route::get('/condition/{condition}', [ConditionController::class, 'show']);
-Route::post('/condition/{condition}', [ConditionController::class, 'update']);
-Route::delete('/condition/{condition}', [ConditionController::class, 'destroy']);
-
-Route::get('/paymentmethod', [PaymentMethodController::class, 'index']);
-Route::post('/paymentmethod', [PaymentMethodController::class, 'store']);
-Route::get('/paymentmethod/{payment_method}', [PaymentMethodController::class, 'show']);
-Route::post('/paymentmethod/{payment_method}', [PaymentMethodController::class, 'update']);
-Route::delete('/paymentmethod/{payment_method}', [PaymentMethodController::class, 'destroy']);
-
-Route::get('/paymenttype', [PaymentTypeController::class, 'index']);
-Route::post('/paymenttype', [PaymentTypeController::class, 'store']);
-Route::get('/paymenttype/{payment_type}', [PaymentTypeController::class, 'show']);
-Route::post('/paymenttype/{payment_type}', [PaymentTypeController::class, 'update']);
-Route::delete('/paymenttype/{payment_type}', [PaymentTypeController::class, 'destroy']);
-
-Route::get('/specialformofpayment', [SpecialFormsOfPaymenController::class, 'index']);
-Route::post('/specialformofpayment', [SpecialFormsOfPaymenController::class, 'store']);
-Route::get('/specialformofpayment/{special_form_of_payment}', [SpecialFormsOfPaymenController::class, 'show']);
-Route::post('/specialformofpayment/{special_form_of_payment}', [SpecialFormsOfPaymenController::class, 'update']);
-Route::delete('/specialformofpayment/{special_form_of_payment}', [SpecialFormsOfPaymenController::class, 'destroy']);
-
-Route::get('/state', [StateController::class, 'index']);
-Route::get('/state/{state}', [StateController::class, 'show']);
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signUp']);
