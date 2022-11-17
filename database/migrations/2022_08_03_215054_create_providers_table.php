@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone_number')->nullable();;
             $table->longText('company');
             $table->longText('rif')->nullable();
-            $table->enum('provider_type', [1,2,3]);
+            $table->enum('provider_type', ['Servicios','Suministros','Mayor']);
             $table->timestamps();
         });
     }
