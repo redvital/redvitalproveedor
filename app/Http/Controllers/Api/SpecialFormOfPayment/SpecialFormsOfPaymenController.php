@@ -7,7 +7,7 @@ use App\Models\SpecialFormsOfPayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Http\Resources\DDList\SpecialFormsOfPaymentDDListResource;
 class SpecialFormsOfPaymenController extends Controller
 {
     /**
@@ -87,4 +87,11 @@ class SpecialFormsOfPaymenController extends Controller
         $special_form_of_payment->delete();
         return $this->showOne($special_form_of_payment);
     }
+
+    public function ddList()
+    {
+        $special_form_of_payment = SpecialFormsOfPaymentDDListResource::collection(SpecialFormsOfPayment::all());
+        return $special_form_of_payment;
+    }
+
 }

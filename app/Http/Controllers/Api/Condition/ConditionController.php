@@ -7,6 +7,7 @@ use App\Models\Condition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\DDList\ConditionDDListResource;
 
 class ConditionController extends Controller
 {
@@ -85,5 +86,11 @@ class ConditionController extends Controller
     {
         $condition->delete();
         return $this->showOne($condition);
+    }
+
+    public function ddlist()
+    {
+        $condition = ConditionDDListResource::collection(Condition::all());
+        return $condition;
     }
 }

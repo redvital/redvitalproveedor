@@ -7,7 +7,7 @@ use App\Models\PaymentType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Http\Resources\DDList\PaymentTypeDDListResource;
 class PaymentTypeController extends Controller
 {
     /**
@@ -86,5 +86,11 @@ class PaymentTypeController extends Controller
     {
         $payment_type->delete();
         return $this->showOne($payment_type);
+    }
+
+    public function ddList()
+    {
+        $payment_type = PaymentTypeDDListResource::collection(PaymentType::all());
+        return $payment_type;
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Coin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\DDList\CoinDDListResource;
 
 class CoinController extends Controller
 {
@@ -85,5 +86,11 @@ class CoinController extends Controller
     {
         $coin->delete();
         return $this->showOne($coin);
+    }
+
+    public function getDDList()
+    {
+        $coin = CoinDDListResource::collection(Coin::all());
+        return $coin;
     }
 }

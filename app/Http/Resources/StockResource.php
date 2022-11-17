@@ -15,7 +15,7 @@ class StockResource extends JsonResource
     public function toArray($request)
     {
 
-    $stock = [
+    $data = [
             'stock' => [
             'id' => $this->id,
             'quantity' => $this->quantity,
@@ -27,6 +27,6 @@ class StockResource extends JsonResource
             'products' => $this->product()->get(),
         ]];
 
-        return $stock ;
+        return $data ;
     }
 }

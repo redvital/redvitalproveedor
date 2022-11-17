@@ -7,6 +7,7 @@ use App\Models\Bank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\DDList\BankDDListResource;
 
 class BankController extends Controller
 {
@@ -17,7 +18,8 @@ class BankController extends Controller
      */
 
     private $rules = [
-        'bank' => 'required'
+        'bank' => 'required',
+        'code' => 'required'
     ];
 
     public function index()
@@ -86,5 +88,11 @@ class BankController extends Controller
     {
         $bank->delete();
         return $this->showOne($bank);
+    }
+
+    public function getDDList()
+    {
+        $bank =  BankDDListResource::collection(Bank::all());
+        return ($bank);
     }
 }

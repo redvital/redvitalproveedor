@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Resources\DDList\CategoryDDListResource;
 
 class CategoryController extends Controller
 {
@@ -70,5 +71,11 @@ class CategoryController extends Controller
     {
         $category->delete();
         return $this->showOne($category);
+    }
+
+    public function getDDList()
+    {
+        $category = CategoryDDListResource::collection(Category::all());
+        return $category;
     }
 }

@@ -7,7 +7,7 @@ use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Http\Resources\DDList\StateDDListResource;
 class StateController extends Controller
 {
     /**
@@ -68,5 +68,11 @@ class StateController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getDDList()
+    {
+        $state =  StateDDListResource::collection(State::all());
+        return $state;
     }
 }

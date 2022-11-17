@@ -7,7 +7,7 @@ use App\Models\PaymentMethods;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Http\Resources\DDList\PaymentMethodDDListResource;
 
 class PaymentMethodController extends Controller
 {
@@ -93,4 +93,11 @@ class PaymentMethodController extends Controller
         $payment_method = PaymentMethods::all();
         return $this->showAll($payment_method);
     }
+
+    public function ddlistResource()
+    {
+        $payment_method = PaymentMethodDDListResource::collection(PaymentMethods::all());
+        return $payment_method;
+    }
+
 }
