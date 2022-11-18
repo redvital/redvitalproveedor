@@ -18,8 +18,8 @@ class CategoryController extends Controller
     ];
     public function index()
     {
-        $category = CategoryResource::collection(Category::all());
-        return $this->paginate($category);
+        $category = Category::all();
+        return $this->showAll($category);
     }
 
     /**
@@ -48,7 +48,6 @@ class CategoryController extends Controller
     }
 
     /**
-
      */
     public function update(Request $request, Category $category)
     {
