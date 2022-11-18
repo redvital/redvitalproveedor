@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('providers', function (Blueprint $table) {
+        Schema::create('special_forms_of_payments', function (Blueprint $table) {
             $table->id();
-            $table->longText('name');
-            $table->string('email');
-            $table->string('phone_number')->nullable();;
-            $table->longText('company');
-            $table->longText('rif')->nullable();
-            $table->enum('provider_type', ['Servicios','Suministros','Mayor']);
+            $table->string('form_of_payment');
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('providers');
+        Schema::dropIfExists('special_forms_of_payments');
     }
 };

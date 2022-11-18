@@ -14,8 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\Producto::factory(20)->create();
+        $this->call(StateSeeder::class);
+        $this->call(BankSeeder::class);
+        $this->call(CoinSeeder::class);
+        $this->call(ConditionSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(PaymentMethodsSeeder::class);
     }
 }
 
 // git add test
+

@@ -7,7 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-use App\Http\Resources\CategoryResource;
+use App\Http\Resources\DDList\CategoryDDListResource;
 
 class CategoryController extends Controller
 {
@@ -18,8 +18,8 @@ class CategoryController extends Controller
     ];
     public function index()
     {
-        $category = CategoryResource::collection(Category::all());
-        return $this->paginate($category);
+        $category = Category::all();
+        return $this->showAll($category);
     }
 
     /**
@@ -48,7 +48,6 @@ class CategoryController extends Controller
     }
 
     /**
-
      */
     public function update(Request $request, Category $category)
     {
@@ -71,5 +70,11 @@ class CategoryController extends Controller
     {
         $category->delete();
         return $this->showOne($category);
+    }
+
+    public function getDDList()
+    {
+        $category = CategoryDDListResource::collection(Category::all());
+        return $category;
     }
 }
