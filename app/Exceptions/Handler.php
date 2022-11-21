@@ -104,7 +104,7 @@ class Handler extends ExceptionHandler
         {
             $messeger = $exception->getResponse()->getBody();
             $code = $exception->getCode();
-            return $this->errorMessage($messeger,$code);
+            return $this->errorResponse($messeger,$code);
 
 
         }
