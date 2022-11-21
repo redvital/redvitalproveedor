@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 // Stock
-Route::get('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::class , 'index']);
+Route::get('/store/stock', [StockController::class , 'index']);
 Route::get('/stock/{stock_id}', [StockController::class , 'show']);
 Route::post('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::class , 'store']);
 Route::post('/store/{store_id}/supplier/{supplier_id}/stock/{stock_id}', [StockController::class , 'update']);

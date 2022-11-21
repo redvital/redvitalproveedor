@@ -18,7 +18,6 @@ class StockResource extends JsonResource
     {
 
     $data = [
-            'stock' => [
             'id' => $this->id,
             'quantity' => $this->quantity,
             'product_id' => $this->product_id,
@@ -27,7 +26,7 @@ class StockResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'products' => $this->product()->get(),
-        ]];
+        ];
 
         return $data ;
     }
