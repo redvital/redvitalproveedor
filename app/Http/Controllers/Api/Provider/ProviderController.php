@@ -53,7 +53,7 @@ class ProviderController extends Controller
         if ($this->existRifProvider($request->rif)) {
             return $this->errorResponse($this->errorRifFound, Response::HTTP_BAD_REQUEST);
         } else {
-
+            error_log("error despues de estas validaciones");
             $provider = Provider::create(
                 $request->all(),
             );

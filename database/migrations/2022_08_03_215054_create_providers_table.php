@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->longText('name');
             $table->string('email');
-            $table->string('phone_number')->nullable();;
-            $table->longText('company');
-            $table->longText('rif')->nullable();
-            $table->enum('provider_type', ['Servicios','Suministros','Mayor']);
+            $table->string('phone_number')->nullable();
+            $table->string('company');
+            $table->string('rif')->nullable();
+            $table->enum('provider_type', [1,2,3]);
             $table->timestamps();
         });
     }
