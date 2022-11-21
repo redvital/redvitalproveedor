@@ -99,33 +99,20 @@ class ProductProviderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function import(Request $request, Provider $supplier_id)
     {
-        //
+        $validate = Validator::make($request->all(), ['import' => 'required']);
+        if ($validate->fails()) {
+            return $this->errorResponse($validate, Response::HTTP_BAD_REQUEST);
+        }
+        $fileProducts = $request->files('import');
+        $supplier_id->products()->delete();
+
+        return $fileProducts;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-
-    }
+  
+   
 
     public function existSku($sku)
     {

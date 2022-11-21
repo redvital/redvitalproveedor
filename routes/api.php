@@ -109,6 +109,7 @@ Route::delete('/additionalsupplierinformation/{additionalSupplierInformation}', 
 // Products Provider
 Route::get('/supplier/{supplier_id}/products', [ProductProviderController::class, 'index']);
 Route::post('/supplier/{supplier_id}/products', [ProductProviderController::class, 'store']);
+Route::post('/supplier/{supplier_id}/products-import', [ProductProviderController::class, 'import']);
 /* importar productos */
 Route::post('/supplier/{supplier_id}/importar-producto', [ProductProviderController::class, 'importProduct']);
 /* exportar productos */
