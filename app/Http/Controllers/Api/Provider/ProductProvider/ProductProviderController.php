@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Provider;
 use App\Models\ProductProvider;
 use App\Models\Product;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-use App\Http\Resources\ProductProviderResource;
+use App\Imports\ProductProviderImport;
 
 class ProductProviderController extends Controller
 {
@@ -106,10 +107,17 @@ class ProductProviderController extends Controller
         if ($validate->fails()) {
             return $this->errorResponse($validate, Response::HTTP_BAD_REQUEST);
         }
-        $fileProducts = $request->files('import');
-        $supplier_id->products()->delete();
-
-        return $fileProducts;
+        $fileProducts = $request->file('import');
+        // $supplier_id->products()->delete();
+        try{
+            Excel::import(new ProductProviderImport($supplier_id), $fileProducts);
+        }
+        catch(\Exception $e){
+            error_log("holaa");
+            error_log($e);
+            return $this->errorResponse("formato no valido", Response::HTTP_BAD_REQUEST);
+        }
+      
     }
 
   
