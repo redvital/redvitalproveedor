@@ -53,7 +53,7 @@ class Product extends Model
         return $this->hasOne(User::class, 'user_id', 'agreement_id');
     }
 
-    public function product()
+    public function team()
     {
         return $this->hasOne(Team::class, 'id', 'team_id');
     }
