@@ -10,7 +10,6 @@ class Product extends Model
     use HasFactory;
     protected $fillable = [
             'sku_provider',
-            'sku_redvital',
             'name',
             'description',
             'code',
