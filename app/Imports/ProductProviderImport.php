@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use App\Models\Provider;
 use App\Models\Product;
+use Illuminate\Support\Facades\Validator;
 use App\Models\ProductProvider;
 
 class ProductProviderImport implements ToCollection
@@ -23,34 +24,55 @@ class ProductProviderImport implements ToCollection
     }
 
     public function collection(Collection $rows)
-    {
-        // error_log($rows);
-        error_log($this->provider->id);
-
-        
+    {       
         for ($i = 2; $i < count($rows); $i++) {
              $row = $rows[$i];
-            $categoryValitade= Category::where('name', $row['2'])->first();
-            return $categoryValitade;
-            error_log($categoryValitade,'error');
-            error_log('validate category');
+            ($categoryValitade = Category::whereName($row['2'])->first()) ?
+                $categoryValitade :
+                $categoryValitade = Category::create(['name' => $row[2]]);
              $product = [
                 'name' => $row['0'],
-                'sku'   => $row['1'],
-                'category'   => $row['2'],
+                'sku_provider'   => $row['1'],
+                'category'   => $categoryValitade->id,
                 'bar_code'=>$row['3'],
                 'condition'=>$row['4'],
                 'currency'=>$row['5'],
                 'cost_per_package' => $row['6'],
-                'cost_per_unit'=>$row['7'],
+                'cost_per_unit' => $row['7'],
                 'sugessted_price'=>$row['8'],
+                'method_of_payment' => $row['9']
              ];
-             $productSave = Product::create($product);
-             error_log(implode($productSave));
-            //  $productsProvider = ProductProvider::create([
-            //     'product_id' => $productSave->id,
-            //     'provider_id' => $this->id,
-            // ]);
+             $validator = Validator::make($product, [
+                'name' => 'required',
+                'sku_provider' => 'required',
+                'category' => 'required',
+                'bar_code' => 'required',
+                'condition' => 'required',
+                'currency' => 'required',
+                'cost_per_package' => 'required',
+                'cost_per_unit' => 'required',
+                'sugessted_price' => 'required',
+                'method_of_payment' => 'required',
+            ]);
+           
+            if ($validator->fails()) {
+                continue;
+            }else{
+                $validateProduct = Product::where('name', $row['0'])->where('sku_provider', $row['1'])->first();
+            if ($validateProduct) {
+                  $validateProduct->update($product);
+            }else{
+                $productNew = Product::create($product);
+              
+             $productsProvider = ProductProvider::create([
+                'product_id' => $productNew->id,
+                'provider_id' => $this->provider->id,
+                    ]);
+                }
+            }
+            
+           
+           
         }
         
         // $result = implode(',',$product)

@@ -111,11 +111,12 @@ class ProductProviderController extends Controller
         // $supplier_id->products()->delete();
         try{
             Excel::import(new ProductProviderImport($supplier_id), $fileProducts);
+            return $this->successMensaje('Producto cargado Exitosamente',200);
         }
         catch(\Exception $e){
-            error_log("holaa");
+            
             error_log($e);
-            return $this->errorResponse("formato no valido", Response::HTTP_BAD_REQUEST);
+            return $this->errorResponse("Error al exportar los productos, valide que los campos requerido estan completos", Response::HTTP_BAD_REQUEST);
         }
       
     }
