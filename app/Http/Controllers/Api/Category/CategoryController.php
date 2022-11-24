@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\DDList\CategoryDDListResource;
+use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
 {
