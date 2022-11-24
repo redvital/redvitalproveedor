@@ -11,6 +11,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Imports\ProductProviderImport;
+use App\Http\Resources\ProductProviderResource;
+use Error;
+use Illuminate\Support\Facades\Storage;
 
 class ProductProviderController extends Controller
 {
@@ -31,7 +34,7 @@ class ProductProviderController extends Controller
         'cost_per_unit' => 'required',
         'cost_per_package' => 'required',
         'sugessted_price' => 'required',
-        'provider_id' => 'required',
+        
     ];
 
     public $errorSkuProvider = 'Sku Provider already exists';
@@ -69,30 +72,44 @@ class ProductProviderController extends Controller
     public function store(Request $request, Provider $supplier_id)
     {
         $validate = Validator::make($request->all(), $this->rules);
-
-        if ($this->existSku($request->sku_provider)) {
-            return $this->errorResponse($this->errorSkuProvider, Response::HTTP_BAD_REQUEST);
-        }
-
-        $provider = Provider::where('id', $supplier_id->id)->get();
-
         if ($validate->fails()) {
             return $this->errorResponse($validate, Response::HTTP_BAD_REQUEST);
         }
-
-        if(!empty($provider)){
-            $product = Product::create(
-                $request->all()
-            );
-
-            $productsProvider = ProductProvider::create([
-                'product_id' => $product->id,
-                'provider_id' => $request->supplier_id->id,
-            ]);
-            return $this->showOne($product, 201);
-        }else {
-            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+        
+         $productRequest = Product::where('sku_provider', $request->sku_provider)->first();
+        
+        if($productRequest){
+            return $this->successMessage("sku de proveedor registrado : $request->sku_provider");
         }
+        $file = $request->file('image');
+            $awsRutafile = Storage::disk('s3')->put("imagen-productos-proveedor",  $file, 'public');
+        try{
+              $data = array_merge(
+                $request->all(), [
+                    "image" =>$awsRutafile,
+                    ],);
+            $product = Product::create(
+                $data
+            );
+            $validateProduct = ProductProvider::where('product_id', $product->id )->where('provider_id', $supplier_id->id)->first();
+            if(!$validateProduct){   
+                $productsProvider = ProductProvider::create([
+                'product_id' => $product->id,
+                'provider_id' => $supplier_id->id,
+            ]);
+            return $this->showOne($productsProvider, 201); 
+        }
+        return $this->successMessage("Producto creado $supplier_id->name ");
+         
+        }
+        catch(\Exception $e){
+            error_log($e);
+            return $this->errorResponse("Error en el controlador", Response::HTTP_BAD_REQUEST);
+        }
+     
+
+       
+
         }
 
     /**
@@ -108,10 +125,9 @@ class ProductProviderController extends Controller
             return $this->errorResponse($validate, Response::HTTP_BAD_REQUEST);
         }
         $fileProducts = $request->file('import');
-        // $supplier_id->products()->delete();
         try{
             Excel::import(new ProductProviderImport($supplier_id), $fileProducts);
-            return $this->successMensaje('Producto cargado Exitosamente',200);
+            return $this->successMessage('Producto cargado Exitosamente',200);
         }
         catch(\Exception $e){
             
@@ -126,6 +142,6 @@ class ProductProviderController extends Controller
 
     public function existSku($sku)
     {
-        return Product::where('sku_provider', $sku)->first();
+      
     }
 }
