@@ -140,8 +140,5 @@ class ProductProviderController extends Controller
   
    
 
-    public function existSku($sku)
-    {
-      
-    }
+  
 }
