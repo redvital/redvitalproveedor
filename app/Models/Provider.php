@@ -24,7 +24,9 @@ class Provider extends Model
     {
         return $this->hasMany(SupplierBankDetails::class, 'supplier_id');
     }
-
+    public function providerForProduct(){
+        return $this->hasMany(ProductProvider::class);
+    }
     public function supplierInformation()
     {
         return $this->hasMany(AdditionalSupplierInformation::class, 'supplier_id');
@@ -33,7 +35,11 @@ class Provider extends Model
     public function stock () {
         return $this->hasMany(Stock::class, 'supplier_id');
     }
+
     public function products(){
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class, 'product_providers','provider_id', 'product_id');
+    }
+    public function ProductProvider(){
+        return $this->hasMany(ProductProvider::class);
     }
 }
