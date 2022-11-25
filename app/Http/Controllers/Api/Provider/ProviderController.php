@@ -11,6 +11,7 @@ use App\Models\SupplierBankDetails;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\ProviderResourse;
+use App\Models\SupplierBankDetails;
 
 class ProviderController extends Controller
 {
@@ -45,6 +46,7 @@ class ProviderController extends Controller
      */
     public function store(Request $request)
     {
+        error_log($request);
         $validate = Validator::make($request->all(), $this->rules);
 
         if ($validate->fails()) {
@@ -54,11 +56,9 @@ class ProviderController extends Controller
         if ($this->existRifProvider($request->rif)) {
             return $this->errorResponse($this->errorRifFound, Response::HTTP_BAD_REQUEST);
         } else {
-            error_log("error despues de estas validaciones");
-            $provider = Provider::create(
-                $request->all(),
-            );
-            return $this->showOne($provider, 201);
+            $provider = Provider::create($request->all());
+            // return $this->successResponse($provider);
+             return $this->showOne($provider, 201);
         }
 
     }

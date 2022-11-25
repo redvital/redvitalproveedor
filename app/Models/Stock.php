@@ -11,9 +11,8 @@ class Stock extends Model
 
     protected $fillable = [
         'quantity',
-        'product_id',
+        'product_providers_id',
         'store_id',
-        'supplier_id'
     ];
 
     public function provider ()
