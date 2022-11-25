@@ -17,11 +17,11 @@ class ProductProvider extends Model
 
     public function provider()
     {
-        return $this->hasOne(Provider::class, 'id', 'provider_id');
+        return $this->belongsTo(Provider::class,  'provider_id');
     }
 
     public function product()
     {
-        return $this->hasOne(Product::class, 'id', 'product_id');
+        return $this->belongsTo(Product::class,  'product_id');
     }
 }

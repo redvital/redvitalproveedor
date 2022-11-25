@@ -32,7 +32,17 @@ class ProductProviderController extends Controller
         'sugessted_price' => 'required',
         'provider_id' => 'required',
     ];
+    public function listProductForSupplier(Product $product){
+            $pivot = ProductProvider::where('product_id', $product->id)->get();
+            $ejemplo = $product->providers;
+            return $ejemplo;
+    }
+    public function listSupplierForProduct(Provider $provider){
+        // $pivot = ProductProvider::where('product_id', $product->id)->get();
+        $ejemplo = $provider->products()->with('ProductProvider.provider')->get()->pluck('ProductProvider')->collapse();
 
+        return $ejemplo;
+}
     public $errorSkuProvider = 'Sku Provider already exists';
 
     public function index(Request $request, ProductProvider $supplier_id){

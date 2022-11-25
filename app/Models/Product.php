@@ -53,7 +53,7 @@ class Product extends Model
         return $this->hasOne(User::class, 'user_id', 'agreement_id');
     }
 
-    public function product()
+    public function Team()
     {
         return $this->hasOne(Team::class, 'id', 'team_id');
     }
@@ -61,5 +61,11 @@ class Product extends Model
     public function stock()
     {
         return $this->hasMany(Stock::class, 'product_id', 'id');
+    }
+    public function providers(){
+        return $this->belongsToMany(Provider::class, 'product_providers', 'product_id', 'provider_id', );
+    }
+    public function ProductProvider(){
+        return $this->hasMany(ProductProvider::class);
     }
 }

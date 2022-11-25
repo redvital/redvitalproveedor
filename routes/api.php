@@ -33,8 +33,10 @@ use Illuminate\Support\Facades\Route;
  */
 
 // Stock
+Route::get('/stock', [StockController::class , 'stock']);
 Route::get('/store/stock', [StockController::class , 'index']);
 Route::get('/stock/{stock_id}', [StockController::class , 'show']);
+Route::get('/stock', [StockController::class , 'stock']);
 Route::post('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::class , 'store']);
 Route::post('/store/{store_id}/supplier/{supplier_id}/stock/{stock_id}', [StockController::class , 'update']);
 Route::delete('/stock/{stock_id}', [StockController::class , 'destroy']);
@@ -124,6 +126,8 @@ Route::delete('/additionalsupplierinformation/{additionalSupplierInformation}', 
 // End Additional Supplier Information
 
 // Products Provider
+Route::get('/example-list1/{product}', [ProductProviderController::class, 'listProductForSupplier']);
+Route::get('/example-list2/{provider}', [ProductProviderController::class, 'listSupplierForProduct']);
 Route::get('/supplier/{supplier_id}/products', [ProductProviderController::class, 'index']);
 Route::post('/supplier/{supplier_id}/products', [ProductProviderController::class, 'store']);
 /* importar productos */

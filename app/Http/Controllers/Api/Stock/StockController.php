@@ -24,7 +24,9 @@ class StockController extends Controller
         'quantity' => 'required',
         'product_id' => 'required'
     ];
-
+    public function stock(Request $request){
+        
+    }
     public function index(Request $request)
     {
         $query = $request->query();
