@@ -11,7 +11,6 @@ use App\Models\SupplierBankDetails;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\ProviderResourse;
-use App\Models\SupplierBankDetails;
 
 class ProviderController extends Controller
 {

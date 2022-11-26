@@ -20,12 +20,21 @@ class Stock extends Model
         return $this->belongsTo(Provider::class, 'supplier_id');
     }
 
-    public function store() {
-        return $this->belongsTo(Stores::class, 'store_id');
-    }
+  
 
     public function product() {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+
+
+
+    // relacion de modelos para centrar el stock por tiendas y proveedores
+    public function product_providers() {
+        return $this->belongsto(ProductProvider::class);
+    }
+
+    public function store() {
+        return $this->belongsTo(Stores::class, 'store_id');
     }
 
 }
