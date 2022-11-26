@@ -18,7 +18,7 @@ class Stores extends Model
     public function stock() {
         return $this->hasMany(Stock::class, 'store_id');
     }
-    public function storeProvider(){
-        
-    }
+    public function productProvider(){
+        return $this->belongsToMany(ProductProvider::class, 'stocks', 'store_id', 'product_providers_id');
+        }
 }
