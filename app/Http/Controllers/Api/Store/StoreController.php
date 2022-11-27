@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Api\Store;
 
-use App\Http\Controllers\Controller;
-use App\Models\Stores;
+use Exception;
 use App\Models\Stock;
+use App\Models\Stores;
+use App\Models\Product;
+use App\Models\Provider;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Symfony\Component\HttpFoundation\Response;
+use App\Models\ProductProvider;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductStore;
 use App\Http\Resources\StoreResource;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class StoreController extends Controller
 {
@@ -18,6 +22,57 @@ class StoreController extends Controller
         'code' => 'required',
 
     ];
+
+
+
+
+    public function addStock(Request $request){
+         $product = $request->query('product');
+         $provider = $request->query('provider');
+         $store = $request->query('store');
+         $rules = [
+            'quantity' => 'required'    
+        ];
+         $validate = Validator::make($request->all(), $rules);
+        if ($validate->fails()) {
+            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+        }
+         if(empty($product) || empty($provider) || empty($store)){
+            return $this->errorResponse("Error, Aún faltan parametros en la URL: product, provider o store ", 400) ;;
+         }
+         try{
+           $validateStore =  Stores::findOrFail($store);
+            Product::findOrFail($product);
+            Provider::findOrFail($provider);
+
+            $produstProvider = ProductProvider::whereId($product)->whereId($provider)->first();
+            if(!empty($produstProvider)){
+                $stockExistvalidate = Stock::where('product_providers_id', $produstProvider->id)->where('store_id', $store)->first();
+                
+                if( empty($stockExistvalidate)){
+                    $stock = Stock::create([
+                        'product_providers_id' => $produstProvider->id,
+                        'store_id' => $store,
+                        'quantity' => $request->quantity
+                    ]);
+
+                    return $this->showOne($stock, 200);
+                };
+               
+                
+            }
+            return $this->errorResponse("Error, el producto ya se encuentra registrado en stock de la tienda: $validateStore->name", 400) ;
+         }
+         catch(Exception $e){
+            error_log($e);
+            return $this->errorResponse("Error al registrar producto en stock, verifique que exista el id del producto o la tienda", 400) ;
+         }
+      
+         return $produstProvider;
+
+         return $product;
+    }
+
     /**
      * Display a listing of the resource.
      *
