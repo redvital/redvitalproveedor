@@ -135,10 +135,5 @@ class ProductProviderController extends Controller
             return $this->errorResponse("Error al exportar los productos, valide que los campos requerido estan completos", Response::HTTP_BAD_REQUEST);
         }
       
-    }
-
-  
-   
-
-  
+    }  
 }
