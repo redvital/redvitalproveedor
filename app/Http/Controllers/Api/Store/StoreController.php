@@ -26,11 +26,10 @@ class StoreController extends Controller
 
     public function list_stock(Stores $store_id){
 
-        $data= $store_id->stock()->with('productProviders.provider', 'productProviders.product')->get()->pluck('productProviders');
-        error_log($data);
+        $data= $store_id->stock()->with('productProviders.provider', 'productProviders.product')->get()->pluck('productProviders')->values();
         return $data;
-        dd($data);
-        return $store_id->productProvider->pluck('pivot');
+        // todo: agregar paginacion en esta collapse
+        // return $this->paginate($data);
     }
 
     public function addStock(Request $request){
