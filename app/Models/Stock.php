@@ -29,7 +29,7 @@ class Stock extends Model
 
 
     // relacion de modelos para centrar el stock por tiendas y proveedores
-    public function product_providers() {
+    public function productProviders() {
         return $this->belongsto(ProductProvider::class);
     }
 

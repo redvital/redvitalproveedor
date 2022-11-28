@@ -30,6 +30,5 @@ class ProductProvider extends Model
     }
     public function store(){
         return $this->belongsToMany(Store::class, 'stocks', 'product_providers_id', 'store_id');
-
     }
 }
