@@ -160,3 +160,4 @@ class StoreController extends Controller
         return ($store_provider);
     }
 }
+// update product
