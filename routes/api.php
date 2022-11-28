@@ -79,7 +79,7 @@ Route::post('/store/{store}', [StoreController::class, 'update']);
 Route::delete('/store/{store}', [StoreController::class, 'destroy']);
 Route::get('/store/{store_id}/products', [StoreController::class, 'store_products']);
 // add stock for store
-Route::get('/store/{store_id}/stock', [StoreController::class, 'stock']);
+Route::get('/store/{store_id}/stock', [StoreController::class, 'list_stock']);
 Route::post('/stock', [StoreController::class, 'addStock']);
 
 

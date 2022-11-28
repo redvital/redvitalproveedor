@@ -24,7 +24,14 @@ class StoreController extends Controller
     ];
 
 
+    public function list_stock(Stores $store_id){
 
+        $data= $store_id->stock()->with('productProviders.provider', 'productProviders.product')->get()->pluck('productProviders');
+        error_log($data);
+        return $data;
+        dd($data);
+        return $store_id->productProvider->pluck('pivot');
+    }
 
     public function addStock(Request $request){
          $product = $request->query('product');
@@ -40,12 +47,11 @@ class StoreController extends Controller
          if(empty($product) || empty($provider) || empty($store)){
             return $this->errorResponse("Error, Aún faltan parametros en la URL: product, provider o store ", 400) ;;
          }
+         $validateStore =  Stores::findOrFail($store);
+         Product::findOrFail($product);
+         Provider::findOrFail($provider);
          try{
-           $validateStore =  Stores::findOrFail($store);
-            Product::findOrFail($product);
-            Provider::findOrFail($provider);
-
-            $produstProvider = ProductProvider::whereId($product)->whereId($provider)->first();
+            $produstProvider = ProductProvider::where('product_id', $product)->where('provider_id',$provider)->first();
             if(!empty($produstProvider)){
                 $stockExistvalidate = Stock::where('product_providers_id', $produstProvider->id)->where('store_id', $store)->first();
                 
@@ -55,22 +61,21 @@ class StoreController extends Controller
                         'store_id' => $store,
                         'quantity' => $request->quantity
                     ]);
-
                     return $this->showOne($stock, 200);
                 };
                
-                
+                return $this->errorResponse("Error, el producto ya se encuentra registrado en stock de la tienda: $validateStore->name", 400) ;
             }
-            return $this->errorResponse("Error, el producto ya se encuentra registrado en stock de la tienda: $validateStore->name", 400) ;
+            return $this->errorResponse("Error, el producto no coincide con el proveedor", 400);
+            // return $produstProvider;
+         
+         
          }
          catch(Exception $e){
             error_log($e);
+            
             return $this->errorResponse("Error al registrar producto en stock, verifique que exista el id del producto o la tienda", 400) ;
          }
-      
-         return $produstProvider;
-
-         return $product;
     }
 
     /**
