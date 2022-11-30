@@ -30,5 +30,9 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'stock' => [
+            'base_uri' => env('STOCK_SERVICE_BASE_URL'),
+            'secret' => env('STOCK_SERVICE_SECRET')
+        ]
 
 ];
