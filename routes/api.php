@@ -21,6 +21,8 @@ use App\Http\Controllers\Api\SpecialFormOfPayment\SpecialFormsOfPaymenController
 use App\Http\Controllers\Api\State\StateController;
 use App\Http\Controllers\Microservice\StockServiceController;
 use App\Http\Controllers\Microservice\TiendaServiceController;
+use App\Http\Controllers\Microservice\ProductoServiceController;
+use App\Http\Controllers\Microservice\ProveedorServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -211,6 +213,18 @@ Route::get('/state/{state}', [StateController::class, 'show']);
     $router->get('/microservice/tienda/{Tienda_id}',  [TiendaServiceController::class,'show']);
     $router->put('/microservice/tienda/{Tienda_id}',  [TiendaServiceController::class,'update']);
     $router->delete('/microservice/tienda/{Tienda_id}',  [TiendaServiceController::class,'destroy']);
+    // productos
 
-    
+    $router->get('/microservice/producto',  [ProductoServiceController::class,'index']);
+    $router->post('/microservice/producto',  [ProductoServiceController::class,'store']);
+    $router->get('/microservice/producto/{Producto_id}',  [ProductoServiceController::class,'show']);
+    $router->put('/microservice/producto/{Producto_id}',  [ProductoServiceController::class,'update']);
+    $router->delete('/microservice/producto/{Producto_id}',  [ProductoServiceController::class,'destroy']);
+    // proveedores
+    $router->get('/microservice/proveedor',  [ProveedorServiceController::class,'index']);
+    $router->post('/microservice/proveedor',  [ProveedorServiceController::class,'store']);
+    $router->get('/microservice/proveedor/{Proveedor_id}',  [ProveedorServiceController::class,'show']);
+    $router->put('/microservice/proveedor/{Proveedor_id}',  [ProveedorServiceController::class,'update']);
+    $router->delete('/microservice/proveedor/{Proveedor_id}',  [ProveedorServiceController::class,'destroy']);
+
 //   });

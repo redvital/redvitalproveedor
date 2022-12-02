@@ -32,7 +32,6 @@ class TiendaServiceController extends Controller
     {
         // validacion de tienda y producto
         // $validacion =  $this->successDataService($this->authorService->getAuthor($request->author_id));
-        error_log("hola");
         return $this->successDataService($this->tiendaService->createTienda($request->all()));
     }
     public function update(Request $request, $Tienda_id)
