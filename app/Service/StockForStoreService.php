@@ -17,7 +17,7 @@ class StockForStoreService
 
      public function getStockIndex()
      {
-         
+         error_log($this->secret);
        return  $this->performRequest('GET', '/stockService');
        
      }
@@ -29,7 +29,7 @@ class StockForStoreService
      }
      public function getStockShow($stockService)
      {
-        return $this->performRequest('GET', "/StockService/{$stockService}");
+        return $this->performRequest('GET', "/stockService/{$stockService}");
      }
 
      public function editStock($data, $stockService)

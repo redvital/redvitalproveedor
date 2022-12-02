@@ -15,6 +15,7 @@ use Kreait\Firebase\Messaging\WebPushConfig;
 
 trait ApiResponse
 {
+
     private function successResponse($data, $code)
     {
         return response()->json($data, $code);
@@ -24,6 +25,10 @@ trait ApiResponse
         return response()->json(['data' => $data], $code);
     }
     
+    public function successDataService($data, $code = Response::HTTP_BAD_REQUEST)
+    {
+        return response($data,$code)->header('Content-Type', 'application/json');
+    }
     protected function errorResponse($message, $code = Response::HTTP_BAD_REQUEST)
     {
         return response()->json(['error' => $message, 'code' => $code], $code);
