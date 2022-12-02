@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'accessrole'=>\App\Http\Middleware\EnsureUserRoleIsAllowedToAccess::class,
         'admin'=> \App\Http\Middleware\AdminMiddleware::class,
+        'client.credentials' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
     ];
 }

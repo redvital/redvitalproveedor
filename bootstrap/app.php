@@ -1,5 +1,5 @@
 <?php
-
+use Laravel\Passport\Http\Middleware\CheckClientCredentials;
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -26,6 +26,8 @@ $app = new Illuminate\Foundation\Application(
 |
 */
 
+
+
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
     App\Http\Kernel::class
@@ -51,5 +53,8 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
+// $app->routeMiddleware([
+//      'client.credentials' => CheckClientCredentials::class,
+//  ]);
 
 return $app;

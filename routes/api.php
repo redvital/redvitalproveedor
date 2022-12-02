@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\PaymentMethod\PaymentMethodController;
 use App\Http\Controllers\Api\PaymentType\PaymentTypeController;
 use App\Http\Controllers\Api\SpecialFormOfPayment\SpecialFormsOfPaymenController;
 use App\Http\Controllers\Api\State\StateController;
+use App\Http\Controllers\Microservice\StockServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -196,3 +197,7 @@ Route::get('/state/{state}', [StateController::class, 'show']);
 // finish
 
 // microservices para stock
+//  $router->group(['middleware' => 'client.credentials'], function() use ($router)
+//   {
+    $router->get('/microservice/stock',  [StockServiceController::class,'index']);
+//   });
