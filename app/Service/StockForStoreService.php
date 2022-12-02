@@ -11,8 +11,8 @@ class StockForStoreService
 
      public function __construct()
      {
-         $this->baseUri = config('services.stock.base_uri');
-         $this->secret = config('services.stock.secret');
+         $this->baseUri = config('services.oasis.base_uri');
+         $this->secret = config('services.oasis.secret');
      }
 
      public function getStockIndex()
@@ -27,18 +27,18 @@ class StockForStoreService
        
       return  $this->performRequest('POST', '/stockService', $data);
      }
-     public function getStockShow($stockService)
+     public function getStockShow($Stock_id)
      {
-        return $this->performRequest('GET', "/stockService/{$stockService}");
+        return $this->performRequest('GET', "/stockService/{$Stock_id}");
      }
 
-     public function editStock($data, $stockService)
+     public function editStock($data, $Stock_id)
      {
-      return $this->performRequest('PUT', "/stockService/{$stockService}", $data);
+      return $this->performRequest('PUT', "/stockService/{$Stock_id}", $data);
      }
-     public function deleteStock($stockService)
+     public function deleteStock($Stock_id)
      {
-      return $this->performRequest('DELETE', "/stockService/{$stockService}");
+      return $this->performRequest('DELETE', "/stockService/{$Stock_id}");
      }
 }
 

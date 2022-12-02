@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\State\StateController;
 use App\Http\Controllers\Api\Provider\ProviderType\ProviderTypeController;
 use App\Http\Controllers\Api\AccountType\AccountTypeController;
 use App\Http\Controllers\Microservice\StockServiceController;
+use App\Http\Controllers\Microservice\TiendaServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -215,4 +216,16 @@ Route::get('/state/{state}', [StateController::class, 'show']);
 //  $router->group(['middleware' => 'client.credentials'], function() use ($router)
 //   {
     $router->get('/microservice/stock',  [StockServiceController::class,'index']);
+    $router->get('/microservice/stock/{Stock_id}',  [StockServiceController::class,'show']);
+    $router->put('/microservice/stock/{Stock_id}',  [StockServiceController::class,'update']);
+    $router->delete('/microservice/stock/{Stock_id}',  [StockServiceController::class,'destroy']);
+    $router->post('/microservice/stock',  [StockServiceController::class,'store']);
+    // tiendaService
+    $router->get('/microservice/tienda',  [TiendaServiceController::class,'index']);
+    $router->post('/microservice/tienda',  [TiendaServiceController::class,'store']);
+    $router->get('/microservice/tienda/{Tienda_id}',  [TiendaServiceController::class,'show']);
+    $router->put('/microservice/tienda/{Tienda_id}',  [TiendaServiceController::class,'update']);
+    $router->delete('/microservice/tienda/{Tienda_id}',  [TiendaServiceController::class,'destroy']);
+
+    
 //   });
