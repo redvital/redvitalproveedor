@@ -19,6 +19,8 @@ use App\Http\Controllers\Api\PaymentMethod\PaymentMethodController;
 use App\Http\Controllers\Api\PaymentType\PaymentTypeController;
 use App\Http\Controllers\Api\SpecialFormOfPayment\SpecialFormsOfPaymenController;
 use App\Http\Controllers\Api\State\StateController;
+use App\Http\Controllers\Api\Provider\ProviderType\ProviderTypeController;
+use App\Http\Controllers\Api\AccountType\AccountTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,17 +33,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
  */
-
-// Stock
-Route::get('/stock', [StockController::class , 'stock']);
-Route::get('/store/stock', [StockController::class , 'index']);
-Route::get('/stock/{stock_id}', [StockController::class , 'show']);
-Route::get('/stock', [StockController::class , 'stock']);
-Route::post('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::class , 'store']);
-Route::post('/store/{store_id}/supplier/{supplier_id}/stock/{stock_id}', [StockController::class , 'update']);
-Route::delete('/stock/{stock_id}', [StockController::class , 'destroy']);
-//End Stock
-
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signUp']);
@@ -141,9 +132,33 @@ Route::post('/supplier/{supplier_id}/importar-producto', [ProductProviderControl
 /* exportar productos */
 Route::get('/export/{producto}', [ProductProviderController::class, 'exportProduct']);
 
+// Provider Type
+Route::get('/providertype', [ProviderTypeController::class, 'index']);
+Route::post('/providertype', [ProviderTypeController::class, 'store']);
+Route::get('/providertype/ddlist', [ProviderTypeController::class, 'getDDList']);
+Route::get('/providertype/{provider_type}', [ProviderTypeController::class, 'show']);
+Route::post('/providertype/{provider_type}', [ProviderTypeController::class, 'update']);
+Route::delete('/providertype/{provider_type}', [ProviderTypeController::class, 'destroy']);
+
+// Account Type
+Route::get('/accounttype', [AccountTypeController::class, 'index']);
+Route::post('/accounttype', [AccountTypeController::class, 'store']);
+Route::get('/accounttype/ddlist', [AccountTypeController::class, 'getDDList']);
+Route::get('/accounttype/{account_type}', [AccountTypeController::class, 'show']);
+Route::post('/accounttype/{account_type}', [AccountTypeController::class, 'update']);
+Route::delete('/accounttype/{account_type}', [AccountTypeController::class, 'destroy']);
+
+// Stock
+Route::get('/stock', [StockController::class , 'stock']);
+Route::get('/store/stock', [StockController::class , 'index']);
+Route::get('/stock/{stock_id}', [StockController::class , 'show']);
+Route::get('/stock', [StockController::class , 'stock']);
+Route::post('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::class , 'store']);
+Route::post('/store/{store_id}/supplier/{supplier_id}/stock/{stock_id}', [StockController::class , 'update']);
+Route::delete('/stock/{stock_id}', [StockController::class , 'destroy']);
+//End Stock
+
 // End Products Provider
-
-
 
 Route::get('/bank', [BankController::class, 'index']);
 Route::post('/bank', [BankController::class, 'store']);
