@@ -22,10 +22,10 @@ class StockForStoreService
        
      }
 
-     public function createStock($data)
+     public function createStock($data, $formaParams=[])
      {
        
-      return  $this->performRequest('POST', '/stockService', $data);
+      return  $this->performRequest('POST', '/stockService', $data, $formaParams);
      }
      public function getStockShow($Stock_id)
      {

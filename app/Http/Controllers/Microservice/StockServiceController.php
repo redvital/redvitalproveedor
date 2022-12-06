@@ -30,10 +30,7 @@ class StockServiceController extends Controller
     }
     public function store(Request $request)
     {
-        // validacion de tienda y producto
-        // $validacion =  $this->successResponse($this->authorService->getAuthor($request->author_id));
-        
-        return $this->successDataService($this->stockService->createStock($request->all()));
+        return $this->successDataService($this->stockService->createStock($request->all(), $formaParams = $request->query->all()));
     }
     public function update(Request $request, $Stock_id)
     {
