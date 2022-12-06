@@ -210,4 +210,4 @@ Route::get('/state/{state}', [StateController::class, 'show']);
 
 // finish
 
-// microservices para stock
+// microservices para stock update
