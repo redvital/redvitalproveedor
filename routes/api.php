@@ -214,7 +214,7 @@ Route::get('/state/{state}', [StateController::class, 'show']);
 
 // finish
 
-// microservices para stock update
+// microservices 
 //  $router->group(['middleware' => 'client.credentials'], function() use ($router)
 //   {
     $router->get('/microservice/stock',  [StockServiceController::class,'index']);
