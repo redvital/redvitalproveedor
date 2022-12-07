@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Provider;
 use App\Http\Resources\AdditionalSupplierInformationResource;
+use Illuminate\Support\Facades\Storage;
 
 class AdditionalSupplierInformationController extends Controller
 {
@@ -45,6 +46,7 @@ class AdditionalSupplierInformationController extends Controller
         if ($validate->fails()) {
             return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
+        // $file = $request->file('image');
         $additionalSupplierInformation = AdditionalSupplierInformation::create(
             [
                 'fiscal_address' => $request->fiscal_address,
@@ -57,7 +59,7 @@ class AdditionalSupplierInformationController extends Controller
                 'consignment' => $request->consignment,
                 'representative_id' => $request->representative_id,
                 'supplier_id' => $supplier_id->id,
-                'rif' => $request->rif,
+                'rif' =>  Storage::disk('s3')->put("imagen-rif-proveedor",  $request->file('rif'), 'public'),
                 'commercial_register' => $request->commercial_register,
                 'identification_document' => $request->identification_document,
             ]
