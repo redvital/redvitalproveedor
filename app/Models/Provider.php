@@ -16,7 +16,8 @@ class Provider extends Model
         'phone_number',
         'company',
         'rif',
-        'provider_type'
+        'provider_type',
+        'user_id'
     ];
 
     public function bankDetails()
@@ -40,5 +41,10 @@ class Provider extends Model
     }
     public function ProductProvider(){
         return $this->hasMany(ProductProvider::class);
+    }
+
+
+    public function User(){
+        return $this->hasOne(User::class, 'user_id');
     }
 }

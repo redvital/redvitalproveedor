@@ -76,8 +76,9 @@ class AuthController extends Controller
 
     public function me()
     {
+        $user = Auth::user()->with('Provider')->get();
         return response()->json(
-            Auth::user()
+            $user
         );
     }
 

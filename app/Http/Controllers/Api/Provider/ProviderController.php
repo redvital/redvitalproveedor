@@ -11,6 +11,7 @@ use App\Models\SupplierBankDetails;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\ProviderResourse;
+use Error;
 
 class ProviderController extends Controller
 {
@@ -55,7 +56,8 @@ class ProviderController extends Controller
         if ($this->existRifProvider($request->rif)) {
             return $this->errorResponse($this->errorRifFound, Response::HTTP_BAD_REQUEST);
         } else {
-            $provider = Provider::create($request->all());
+            $data = array_merge($request->all(), ["user_id" => auth()->user()->id]);
+            $provider = Provider::create($data);
             // return $this->successResponse($provider);
              return $this->showOne($provider, 201);
         }

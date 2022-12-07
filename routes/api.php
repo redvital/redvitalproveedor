@@ -41,11 +41,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signUp']);
 
-//Pre Register Providers //
-Route::post('/provider', [ProviderController::class, 'store']);
-Route::post('/provider/{supplier_id}/supplierbankdetails', [SupplierBankDetailsController::class, 'store']);
-Route::post('/provider/{supplier_id}/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'store']);
-//End Pre Register Providers //
+
 
 Route::middleware('auth:api')->group(function () {
 
@@ -64,6 +60,12 @@ Route::get('/provider', [ProviderController::class, 'index']);
 Route::get('/provider/{provider}', [ProviderController::class, 'show']);
 Route::post('/provider/{provider}', [ProviderController::class, 'update']);
 Route::delete('/provider/{provider}', [ProviderController::class, 'destroy']);
+
+//Pre Register Providers //
+Route::post('/provider', [ProviderController::class, 'store']);
+Route::post('/provider/{supplier_id}/supplierbankdetails', [SupplierBankDetailsController::class, 'store']);
+Route::post('/provider/{supplier_id}/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'store']);
+//End Pre Register Providers //
 //End Providers
 
 // store

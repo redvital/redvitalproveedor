@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('company');
             $table->string('rif')->nullable();
             $table->enum('provider_type', [1,2,3]);
+            $table->foreignId('user_id')->nullable()->references('id')->on('users')->onDelete("cascade");
             $table->timestamps();
         });
     }

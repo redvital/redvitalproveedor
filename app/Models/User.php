@@ -59,13 +59,16 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function adminlte_image()
-    {
-        return profile_photo_url;
-    }
+    // public function adminlte_image()
+    // {
+    //     return profile_photo_url;
+    // }
     public function adminlte_profile_url()
     {
         return 'profile/username';
+    }
+    public function Provider(){
+        return $this->hasMany(Provider::class);
     }
     public function fcmTokens()
     {
