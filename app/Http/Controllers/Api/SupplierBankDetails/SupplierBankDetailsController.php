@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Provider;
 use App\Http\Resources\BankDetailsResourse;
+use Illuminate\Support\Facades\Storage;
 
 class SupplierBankDetailsController extends Controller
 {
@@ -33,6 +34,7 @@ class SupplierBankDetailsController extends Controller
      */
     public function index(Provider $supplier_id)
     {
+        
         $supplierBankDetails = BankDetailsResourse::collection(SupplierBankDetails::where('supplier_id', $supplier_id->id)->get());
         return $this->paginate($supplierBankDetails);
     }
@@ -58,7 +60,7 @@ class SupplierBankDetailsController extends Controller
                     'account_type' => $request->account_type,
                     'account_number' => $request->account_number,
                     'account_holder' => $request->account_holder,
-                    'rif' => $request->rif,
+                    'rif' => Storage::disk('s3')->put("details-file-rif", $request->file('rif'), 'public'),
                     'supplier_id' => $supplier_id->id
                 ]
             );
@@ -85,11 +87,13 @@ class SupplierBankDetailsController extends Controller
      */
     public function update(Request $request, SupplierBankDetails $supplierBankDetails)
     {
-        $validate = Validator::make($request->all(), $this->rules);
-        if ($validate->fails()) {
-            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+
+        $supplierBankDetails->fill($request->all());
+        if($supplierBankDetails->isClean())
+        {
+            return $this->errorResponse("Al menos un valor debe cambiar" , Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        $supplierBankDetails->update($request->all());
+        $supplierBankDetails->save();
         return $this->showOne($supplierBankDetails);
     }
 

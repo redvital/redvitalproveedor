@@ -58,7 +58,7 @@ Route::delete('/category/{category}', [CategoryController::class, 'destroy']);
 // Providers
 Route::get('/provider', [ProviderController::class, 'index']);
 Route::get('/provider/{provider}', [ProviderController::class, 'show']);
-Route::put('/provider/{provider}', [ProviderController::class, 'update']);
+Route::patch('/provider/{provider}', [ProviderController::class, 'update']);
 Route::delete('/provider/{provider}', [ProviderController::class, 'destroy']);
 
 //Pre Register Providers //
@@ -108,7 +108,7 @@ Route::delete('/line/{line}', [LineController::class, 'destroy']);
 // Supplier Bank Details
 Route::get('/provider/{supplier_id}/supplierbankdetails', [SupplierBankDetailsController::class, 'index']);
 Route::get('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'show']);
-Route::post('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'update']);
+Route::patch('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'update']);
 Route::delete('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetailsController::class, 'destroy']);
 // End Supplier Bank Details
 
@@ -123,7 +123,7 @@ Route::delete('/representative/{representative}', [RepresentativeController::cla
 // Additional Supplier Information
 Route::get('/provider/{supplier_id}/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'index']);
 Route::get('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'show']);
-Route::post('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'update']);
+Route::patch('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'update']);
 Route::delete('/additionalsupplierinformation/{additionalSupplierInformation}', [AdditionalSupplierInformationController::class, 'destroy']);
 // End Additional Supplier Information
 

@@ -85,11 +85,13 @@ class AdditionalSupplierInformationController extends Controller
      */
     public function update(Request $request, AdditionalSupplierInformation $additionalSupplierInformation)
     {
-        $validate = Validator::make($request->all(), $this->rules);
-        if ($validate->fails()) {
-            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+
+        $additionalSupplierInformation->fill($request->all());
+        if($additionalSupplierInformation->isClean())
+        {
+            return $this->errorResponse("Al menos un valor debe cambiar" , Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        $additionalSupplierInformation->update($request->all());
+        $additionalSupplierInformation->save();
         return $this->showOne($additionalSupplierInformation);
     }
 
