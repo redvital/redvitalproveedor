@@ -68,6 +68,7 @@ class ProviderController extends Controller
 
     public function show(Request $request, Provider $provider)
     {
+        // todo: mostrar informacion si le pertenece al user registrado
         return $this->showOne($provider);
     }
 
@@ -96,6 +97,8 @@ class ProviderController extends Controller
 
     public function update(Request $request, Provider $provider)
     {
+
+        // todo: actualizar informacion si le pertenece al user registrado
         $provider->fill($request->all());
         if($provider->isClean())
         {
@@ -107,6 +110,7 @@ class ProviderController extends Controller
 
     public function destroy(Provider $provider)
     {
+        // todo: eliminar informacion si le pertenece al user registrado
         $provider->delete();
         return $this->showOne($provider);
     }

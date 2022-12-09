@@ -65,11 +65,12 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
-        $validate = Validator::make($request->all(), $this->rules);
-        if ($validate->fails()) {
-            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+        $brand->fill($request->all());
+        if($brand->isClean())
+        {
+            return $this->errorResponse("Al menos un valor debe cambiar" , Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        $brand->update($request->all());
+        $brand->save();
         return $this->showOne($brand);
     }
 

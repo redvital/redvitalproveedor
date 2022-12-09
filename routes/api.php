@@ -86,7 +86,7 @@ Route::post('/stock', [StoreController::class, 'addStock']);
 Route::get('/brand', [BrandController::class, 'index']);
 Route::post('/brand', [BrandController::class, 'store']);
 Route::get('/brand/{brand}', [BrandController::class, 'show']);
-Route::post('/brand/{brand}', [BrandController::class, 'update']);
+Route::patch('/brand/{brand}', [BrandController::class, 'update']);
 Route::delete('/brand/{brand}', [BrandController::class, 'destroy']);
 // end brand
 
