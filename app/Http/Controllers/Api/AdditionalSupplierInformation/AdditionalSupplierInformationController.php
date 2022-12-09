@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Models\Provider;
 use App\Http\Resources\AdditionalSupplierInformationResource;
 use Illuminate\Support\Facades\Storage;
-
 class AdditionalSupplierInformationController extends Controller
 {
 
@@ -20,6 +19,12 @@ class AdditionalSupplierInformationController extends Controller
         'postal_code' => 'required',
         'commercial_name' => 'required',
         'payment_condition' => 'required',
+        'commercial_register' => 'required',
+        'rif' => 'required',
+        'identification_document' => 'required',
+        'retention' => 'required',
+        'consignment'=> 'required',
+
     ];
 
     /**
@@ -46,24 +51,17 @@ class AdditionalSupplierInformationController extends Controller
         if ($validate->fails()) {
             return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
-        // $file = $request->file('image');
-        $additionalSupplierInformation = AdditionalSupplierInformation::create(
-            [
-                'fiscal_address' => $request->fiscal_address,
-                'state' => $request->state,
-                'postal_code' => $request->postal_code,
-                'web_page' => $request->web_page,
-                'commercial_name' => $request->commercial_name,
-                'payment_condition' => $request->payment_condition,
-                'retention' => $request->retention,
-                'consignment' => $request->consignment,
-                'representative_id' => $request->representative_id,
-                'supplier_id' => $supplier_id->id,
-                'rif' =>  Storage::disk('s3')->put("imagen-rif-proveedor",  $request->file('rif'), 'public'),
-                'commercial_register' => $request->commercial_register,
-                'identification_document' => $request->identification_document,
+        // return  [Storage::disk('s3')->put("commercial", $request->file('rif'), 'public'), Storage::disk('s3')->put("commercial-register-file", $request->file('commercial_register'), 'public')];
+        $data = array_merge(
+            $request->all(),[
+            'supplier_id' => $supplier_id->id,
+            'rif' =>  Storage::disk('s3')->put("imagen-rif",  $request->file('rif'), 'public'),
+            'commercial_register' => Storage::disk('s3')->put("commercial-register-file", $request->file('commercial_register'), 'public'),
+            'identification_document' => Storage::disk('s3')->put("identification-file", $request->file('identification_document'), 'public')
             ]
         );
+        // TODO: AGREGAR VALIDACION SI EXIXTE ADICONAL INFORMATION, SINO EXISTE CREA UN REGIISTRO NUEVO SI TIENE REGISTRO NO CRER NUEVO SINO ACTUALIZAR
+        $additionalSupplierInformation = AdditionalSupplierInformation::create($data);
         return $this->showOne($additionalSupplierInformation, 201);
     }
 

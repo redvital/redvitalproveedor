@@ -39,6 +39,7 @@ class ProductProviderController extends Controller
     public function listProductForSupplier(Product $product){
             $pivot = ProductProvider::where('product_id', $product->id)->get();
             $ejemplo = $product->providers;
+            // todo: implementar pagination agregar estructura del resource
             return $ejemplo;
     }
     public function listSupplierForProduct(Provider $provider){
@@ -94,6 +95,7 @@ class ProductProviderController extends Controller
         $file = $request->file('image');
             $awsRutafile = Storage::disk('s3')->put("imagen-productos-proveedor",  $file, 'public');
         try{
+            // todo: ejemplo para unir dos array y mandarlo con el modelo
               $data = array_merge(
                 $request->all(), [
                     "image" =>$awsRutafile,

@@ -58,7 +58,7 @@ Route::delete('/category/{category}', [CategoryController::class, 'destroy']);
 // Providers
 Route::get('/provider', [ProviderController::class, 'index']);
 Route::get('/provider/{provider}', [ProviderController::class, 'show']);
-Route::post('/provider/{provider}', [ProviderController::class, 'update']);
+Route::put('/provider/{provider}', [ProviderController::class, 'update']);
 Route::delete('/provider/{provider}', [ProviderController::class, 'destroy']);
 
 //Pre Register Providers //

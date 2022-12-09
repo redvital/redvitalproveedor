@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('web_page')->nullable();
             $table->string('commercial_name');
             $table->enum('payment_condition', [1,2,3,4,5]);
-            $table->boolean('retention');
-            $table->boolean('consignment');
+            $table->boolean('retention')->default(false);
+            $table->boolean('consignment')->default(false);
             $table->foreignId('representative_id')->nullable()->constrained('representatives')->default(null);
             $table->foreignId('supplier_id')->constrained('providers');
             $table->string('rif')->nullable();

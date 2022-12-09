@@ -19,6 +19,9 @@ class AdditionalSupplierInformation extends Model
         'retention',
         'consignment',
         'representative_id',
+        'rif',
+        'commercial_register',
+        'identification_document'
 
     ];
 

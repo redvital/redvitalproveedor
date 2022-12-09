@@ -34,7 +34,8 @@ class ProviderController extends Controller
 
     public function index()
     {
-        $provider = ProviderResourse::collection(Provider::all());
+        $providerForUser = auth()->user()->Provider;
+        $provider = ProviderResourse::collection($providerForUser);
         return $this->paginate($provider);
     }
 
@@ -95,12 +96,12 @@ class ProviderController extends Controller
 
     public function update(Request $request, Provider $provider)
     {
-
-        $validate = Validator::make($request->all(), $this->rules);
-        if ($validate->fails()) {
-            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+        $provider->fill($request->all());
+        if($provider->isClean())
+        {
+            return $this->errorResponse("Al menos un valor debe cambiar" , Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        $provider->update($request->all());
+        $provider->save();
         return $this->showOne($provider);
     }
 
