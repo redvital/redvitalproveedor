@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResourse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -77,6 +78,20 @@ class AuthController extends Controller
     public function me()
     {
         $user = Auth::user()->with('Provider')->get();
+        $data = UserResourse::collection($user);
+         return $data;
+        //  {
+        //     "id": 1,
+        //     "name": "gatos1",
+        //     "email": "gatos123@gmail.com",
+        //     "phone_number": "123123123",
+        //     "company": "123123123",
+        //     "rif": "J-223467824",
+        //     "provider_type": "2",
+        //     "user_id": 1,
+        //     "created_at": null,
+        //     "updated_at": null
+        // },
         return response()->json(
             $user
         );
