@@ -52,7 +52,7 @@ Route::post('logout', [AuthController::class, 'logout']);
 Route::get('/category', [CategoryController::class, 'index']);
 Route::post('/category', [CategoryController::class, 'store']);
 Route::get('/category/{category}', [CategoryController::class, 'show']);
-Route::post('/category/{category}', [CategoryController::class, 'update']);
+Route::patch('/category/{category}', [CategoryController::class, 'update']);
 Route::delete('/category/{category}', [CategoryController::class, 'destroy']);
 
 // Providers
@@ -72,7 +72,7 @@ Route::post('/provider/{supplier_id}/additionalsupplierinformation', [Additional
 Route::get('/store', [StoreController::class, 'index']);
 Route::post('/store', [StoreController::class, 'store']);
 Route::get('/store/{store}', [StoreController::class, 'show']);
-Route::post('/store/{store}', [StoreController::class, 'update']);
+Route::patch('/store/{store}', [StoreController::class, 'update']);
 Route::delete('/store/{store}', [StoreController::class, 'destroy']);
 Route::get('/store/{store_id}/products', [StoreController::class, 'store_products']);
 // add stock for store
@@ -101,7 +101,7 @@ Route::delete('/subbrand/{subbrand}', [SubBrandController::class, 'destroy']);
 Route::get('/line', [LineController::class, 'index']);
 Route::post('/line', [LineController::class, 'store']);
 Route::get('/line/{line}', [LineController::class, 'show']);
-Route::post('/line/{line}', [LineController::class, 'update']);
+Route::patch('/line/{line}', [LineController::class, 'update']);
 Route::delete('/line/{line}', [LineController::class, 'destroy']);
 // end line
 
@@ -113,10 +113,10 @@ Route::delete('/supplierbankdetails/{supplierBankDetails}', [SupplierBankDetails
 // End Supplier Bank Details
 
 // Representative
-Route::get('/representative', [RepresentativeController::class, 'index']);
+Route::get('/provider/{supplier_id}/representative', [RepresentativeController::class, 'index']);
 Route::post('/provider/{supplier_id}/representative', [RepresentativeController::class, 'store']);
 Route::get('/representative/{representative}', [RepresentativeController::class, 'show']);
-Route::post('/representative/{representative}', [RepresentativeController::class, 'update']);
+Route::patch('/representative/{representative}', [RepresentativeController::class, 'update']);
 Route::delete('/representative/{representative}', [RepresentativeController::class, 'destroy']);
 // End Representative
 
@@ -160,7 +160,7 @@ Route::get('/store/stock', [StockController::class , 'index']);
 Route::get('/stock/{stock_id}', [StockController::class , 'show']);
 Route::get('/stock', [StockController::class , 'stock']);
 Route::post('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::class , 'store']);
-Route::post('/store/{store_id}/supplier/{supplier_id}/stock/{stock_id}', [StockController::class , 'update']);
+Route::patch('/store/{store_id}/supplier/{supplier_id}/stock/{stock_id}', [StockController::class , 'update']);
 Route::delete('/stock/{stock_id}', [StockController::class , 'destroy']);
 //End Stock
 

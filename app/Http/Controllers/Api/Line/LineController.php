@@ -65,11 +65,12 @@ class LineController extends Controller
      */
     public function update(Request $request, Line $line)
     {
-        $validate = Validator::make($request->all(), $this->rules);
-        if ($validate->fails()) {
-            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+        $line->fill($request->all());
+        if($line->isClean())
+        {
+            return $this->errorResponse("Al menos un valor debe cambiar" , Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        $line->update($request->all());
+        $line->save();
         return $this->showOne($line);
     }
 

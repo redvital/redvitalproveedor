@@ -126,11 +126,12 @@ class StoreController extends Controller
      */
     public function update(Request $request, Stores $store)
     {
-        $validate = Validator::make($request->all(), $this->rules);
-        if ($validate->fails()) {
-            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+        $store->fill($request->all());
+        if($store->isClean())
+        {
+            return $this->errorResponse("Al menos un valor debe cambiar" , Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        $store->update($request->all());
+        $store->save();
         return $this->showOne($store);
     }
 

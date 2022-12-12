@@ -23,9 +23,10 @@ class RepresentativeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Provider $supplier_id)
     {
-        $representative = RepresentativeResource::collection(Representative::all());
+        $representativeForSupplier =  $supplier_id->represemtativeUser;
+        $representative = RepresentativeResource::collection($representativeForSupplier);
         return $this->paginate($representative);
     }
 
@@ -73,11 +74,12 @@ class RepresentativeController extends Controller
      */
     public function update(Request $request, Representative $representative)
     {
-        $validate = Validator::make($request->all(), $this->rules);
-        if ($validate->fails()) {
-            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+        $representative->fill($request->all());
+        if($representative->isClean())
+        {
+            return $this->errorResponse("Al menos un valor debe cambiar" , Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        $representative->update($request->all());
+        $representative->save();
         return $this->showOne($representative);
     }
 

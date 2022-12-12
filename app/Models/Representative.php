@@ -14,4 +14,7 @@ class Representative extends Model
         'representatives_document',
         'supplier_id'
     ];
+
+
+    
 }

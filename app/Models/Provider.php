@@ -27,6 +27,9 @@ class Provider extends Model
     public function providerForProduct(){
         return $this->hasMany(ProductProvider::class);
     }
+    public function represemtativeUser(){ 
+        return $this->hasMany(Representative::class,'supplier_id');
+    }
     public function supplierInformation()
     {
         return $this->hasMany(AdditionalSupplierInformation::class, 'supplier_id');

@@ -53,11 +53,12 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
 
-        $validate = Validator::make($request->all(), $this->rules);
-        if ($validate->fails()) {
-            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+        $category->fill($request->all());
+        if($category->isClean())
+        {
+            return $this->errorResponse("Al menos un valor debe cambiar" , Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        $category->update($request->all());
+        $category->save();
         return $this->showOne($category);
     }
 
@@ -69,6 +70,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+
+        // todo: solo el admin puede eliminar categoria
         $category->delete();
         return $this->showOne($category);
     }
