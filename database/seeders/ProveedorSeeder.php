@@ -34,5 +34,6 @@ class ProveedorSeeder extends Seeder
             'provider_type' => "2",
             'user_id' => "1",
         ]);
+        // ejemplo de user news
     }
 }
