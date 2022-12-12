@@ -36,11 +36,15 @@ class ProductProviderImport implements ToCollection
                 'category'   => $categoryValitade->id,
                 'bar_code'=>$row['3'],
                 'condition'=>$row['4'],
-                'currency'=>$row['5'],
-                'cost_per_package' => $row['6'],
-                'cost_per_unit' => $row['7'],
-                'sugessted_price'=>$row['8'],
-                'method_of_payment' => $row['9']
+                'drive_unit' => $row['5'],
+                'payment_condition' => $row['6'],
+                'currency'=>$row['7'],
+                'pack_quantity' => $row['9'],
+                'cost_per_package' => $row['10'],
+                'discount' => $row['11'],
+                'cost_per_unit' => $row['12'],
+                'sugessted_price'=>$row['13'],
+                'method_of_payment' => $row['14']
              ];
              $validator = Validator::make($product, [
                 'name' => 'required',

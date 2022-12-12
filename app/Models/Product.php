@@ -38,6 +38,10 @@ class Product extends Model
         return $this->hasOne(Team::class, 'id', 'team_id');
     }
 
+    public function productAddInformations(){
+        return $this->hasOne(ProductAddInformation::class, 'id', 'product_id');
+    }
+
     public function stock()
     {
         return $this->hasMany(Stock::class, 'product_id', 'id');

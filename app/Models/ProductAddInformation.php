@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductAddInformation extends Model
 {
     use HasFactory;
+    protected $table = 'product_add_informactions';
     protected $fillable = [
         'sku_redvital',
         'description',
@@ -24,4 +25,8 @@ class ProductAddInformation extends Model
         'line',
        'sub_category'
     ];
+    public function product(){
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+    
 }
