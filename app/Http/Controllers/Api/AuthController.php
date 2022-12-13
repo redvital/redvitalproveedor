@@ -82,7 +82,7 @@ class AuthController extends Controller
         $userFilter = $user->filter(function ($value) {
             $me = Auth::user()->email;
             return $value->email == $me;
-        })->values();
+        })->first();
         return $userFilter;
         
         
