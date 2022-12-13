@@ -50,6 +50,7 @@ class ProductProviderController extends Controller
         $collection = $provider_id->products;
         return $collection->filter(function($item){
             return $item ;
+            // finalizar filtro
         });
         $ejemplo = $provider_id->products()->with('ProductProvider.provider')->get()->pluck('ProductProvider')->collapse();
         return $ejemplo;
