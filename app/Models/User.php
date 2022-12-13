@@ -68,7 +68,7 @@ class User extends Authenticatable
         return 'profile/username';
     }
     public function Provider(){
-        return $this->hasMany(Provider::class);
+        return $this->hasOne(Provider::class);
     }
     public function fcmTokens()
     {

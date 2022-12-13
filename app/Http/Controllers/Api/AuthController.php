@@ -77,29 +77,19 @@ class AuthController extends Controller
 
     public function me()
     {
+        
         $user = Auth::user()->with('Provider')->get();
-        $data = UserResourse::collection($user);
-         return $data;
-        //  {
-        //     "id": 1,
-        //     "name": "gatos1",
-        //     "email": "gatos123@gmail.com",
-        //     "phone_number": "123123123",
-        //     "company": "123123123",
-        //     "rif": "J-223467824",
-        //     "provider_type": "2",
-        //     "user_id": 1,
-        //     "created_at": null,
-        //     "updated_at": null
-        // },
-        return response()->json(
-            $user
-        );
+        $userFilter = $user->filter(function ($value) {
+            $me = Auth::user()->email;
+            return $value->email == $me;
+        })->values();
+        return $userFilter;
+        
+        
     }
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
         $request->user()->token()->revoke();
 
         return response()->json([
