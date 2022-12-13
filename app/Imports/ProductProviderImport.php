@@ -25,8 +25,10 @@ class ProductProviderImport implements ToCollection
 
     public function collection(Collection $rows)
     {       
-        for ($i = 2; $i < count($rows); $i++) {
+        for ($i = 4; $i < count($rows); $i++) {
              $row = $rows[$i];
+
+             error_log(strval($row));
             ($categoryValitade = Category::whereName($row['2'])->first()) ?
                 $categoryValitade :
                 $categoryValitade = Category::create(['name' => $row[2]]);

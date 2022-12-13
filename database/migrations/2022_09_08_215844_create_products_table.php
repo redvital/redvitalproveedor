@@ -23,11 +23,11 @@ return new class extends Migration
             $table->string('payment_condition')->nullable();
             $table->string('currency')->references('id')->on('coins');
             $table->string('pack_quantity')->nullable();
-            $table->float('cost_per_package', 9, 3);
+            $table->string('cost_per_package')->nullable();
             $table->integer('discount')->nullable();
             $table->string('cost_per_unit')->nullable();
             $table->string('sugessted_price')->nullable();
-            $table->string('method_of_payment')->references('id')->on('special_forms_of_payments');
+            $table->string('method_of_payment')->references('id')->on('payment_methods');
             $table->string('condition')->references('id')->on('conditions');
             $table->string('image')->nullable();
             $table->boolean('approved')->default(false);

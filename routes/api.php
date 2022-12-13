@@ -129,7 +129,7 @@ Route::delete('/additionalsupplierinformation/{additionalSupplierInformation}', 
 
 // Products Provider
 Route::get('/example-list1/{product}', [ProductProviderController::class, 'listProductForSupplier']);
-Route::get('/example-list2/{provider}', [ProductProviderController::class, 'listSupplierForProduct']);
+Route::get('/provider/{provider_id}/products', [ProductProviderController::class, 'listSupplierForProduct']);
 Route::get('/supplier/{supplier_id}/products', [ProductProviderController::class, 'index']);
 Route::post('/supplier/{supplier_id}/products', [ProductProviderController::class, 'store']);
 Route::post('/supplier/{supplier_id}/products-import', [ProductProviderController::class, 'import']);

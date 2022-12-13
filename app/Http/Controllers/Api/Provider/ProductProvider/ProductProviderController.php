@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Api\Provider\ProductProvider;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Provider;
-use App\Models\ProductProvider;
+use Error;
 use App\Models\Product;
+use App\Models\Provider;
+use App\Rules\ExcelRule;
+use Illuminate\Http\Request;
+use App\Models\ProductProvider;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ProductProviderImport;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-use App\Imports\ProductProviderImport;
 use App\Http\Resources\ProductProviderResource;
-use Error;
-use Illuminate\Support\Facades\Storage;
 
 class ProductProviderController extends Controller
 {
@@ -38,14 +39,19 @@ class ProductProviderController extends Controller
     ];
     public function listProductForSupplier(Product $product){
             $pivot = ProductProvider::where('product_id', $product->id)->get();
+            return $pivot;
             $ejemplo = $product->providers;
             // todo: implementar pagination agregar estructura del resource
             return $ejemplo;
     }
-    public function listSupplierForProduct(Provider $provider){
-        // $pivot = ProductProvider::where('product_id', $product->id)->get();
-        $ejemplo = $provider->products()->with('ProductProvider.provider')->get()->pluck('ProductProvider')->collapse();
-
+    public function listSupplierForProduct(Request $request,Provider $provider_id){
+        $approved = $request->query('approved');
+        $commercialized = $request->query('commercialized');
+        $collection = $provider_id->products;
+        return $collection->filter(function($item){
+            return $item ;
+        });
+        $ejemplo = $provider_id->products()->with('ProductProvider.provider')->get()->pluck('ProductProvider')->collapse();
         return $ejemplo;
 }
     public $errorSkuProvider = 'Sku Provider already exists';
@@ -137,9 +143,13 @@ class ProductProviderController extends Controller
      */
     public function import(Request $request, Provider $supplier_id)
     {
-        $validate = Validator::make($request->all(), ['import' => 'required']);
+        // return $request->file;
+        
+        $validate = Validator::make($request->all(), [
+            'import' => ['required', new ExcelRule($request->file('import'))],
+        ]);
         if ($validate->fails()) {
-            return $this->errorResponse($validate, Response::HTTP_BAD_REQUEST);
+            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
         $fileProducts = $request->file('import');
         try{
