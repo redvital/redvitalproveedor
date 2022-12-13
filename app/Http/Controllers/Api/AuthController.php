@@ -78,7 +78,7 @@ class AuthController extends Controller
     public function me()
     {
         
-        $user = Auth::user()->with('Provider')->get();
+        $user = Auth::user()->with('providerUserMe')->get();
         $userFilter = $user->filter(function ($value) {
             $me = Auth::user()->email;
             return $value->email == $me;
