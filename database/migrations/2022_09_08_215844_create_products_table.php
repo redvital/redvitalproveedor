@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('drive_unit')->nullable();
             $table->string('payment_condition')->nullable();
             $table->string('currency')->references('id')->on('coins');
-
             $table->string('pack_quantity')->nullable();
             $table->float('cost_per_package', 9, 3);
             $table->integer('discount')->nullable();
@@ -31,6 +30,7 @@ return new class extends Migration
             $table->string('method_of_payment')->references('id')->on('special_forms_of_payments');
             $table->string('condition')->references('id')->on('conditions');
             $table->string('image')->nullable();
+            $table->boolean('approved')->default(false);
             $table->integer('units')->nullable();
             $table->timestamps();
         });

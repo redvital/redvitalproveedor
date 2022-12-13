@@ -34,7 +34,7 @@ class ProductProviderController extends Controller
         'cost_per_unit' => 'required',
         'cost_per_package' => 'required',
         'sugessted_price' => 'required',
-        
+        'image' =>'mimes:png,jpg,jpeg'
     ];
     public function listProductForSupplier(Product $product){
             $pivot = ProductProvider::where('product_id', $product->id)->get();
@@ -82,9 +82,10 @@ class ProductProviderController extends Controller
      */
     public function store(Request $request, Provider $supplier_id)
     {
+        
         $validate = Validator::make($request->all(), $this->rules);
         if ($validate->fails()) {
-            return $this->errorResponse($validate, Response::HTTP_BAD_REQUEST);
+            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
         
          $productRequest = Product::where('sku_provider', $request->sku_provider)->first();
@@ -93,16 +94,20 @@ class ProductProviderController extends Controller
             return $this->successMessage("sku de proveedor registrado : $request->sku_provider");
         }
         $file = $request->file('image');
-            $awsRutafile = Storage::disk('s3')->put("imagen-productos-proveedor",  $file, 'public');
-        try{
+        if(empty($file)){
+            $data = $request->all();
+        }else{
             // todo: ejemplo para unir dos array y mandarlo con el modelo
-              $data = array_merge(
+            $awsRutafile = Storage::disk('s3')->put("imagen-productos-proveedor",  $file, 'public'); 
+            $data = array_merge(
                 $request->all(), [
                     "image" =>$awsRutafile,
-                    ],);
-            $product = Product::create(
-                $data
+                ],
             );
+        }
+          
+        try{
+            $product = Product::create($data);
             $validateProduct = ProductProvider::where('product_id', $product->id )->where('provider_id', $supplier_id->id)->first();
             if(!$validateProduct){   
                 $productsProvider = ProductProvider::create([
