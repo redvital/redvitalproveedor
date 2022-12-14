@@ -28,6 +28,10 @@ class Product extends Model
         return $this->hasOne(TypeAgreement::class, 'id', 'agreement_id');
     }
 
+    public function category(){
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
     public function user()
     {
         return $this->hasOne(User::class, 'user_id', 'agreement_id');

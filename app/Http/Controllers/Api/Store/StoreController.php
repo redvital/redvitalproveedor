@@ -27,7 +27,7 @@ class StoreController extends Controller
     public function list_stock(Stores $store_id){
 
         $data= $store_id->stock()->with('productProviders.provider', 'productProviders.product')->get()->pluck('productProviders')->values();
-        return $data;
+        return $this->showAll($data);
         // todo: agregar paginacion en esta collapse
         // return $this->paginate($data);
     }
@@ -100,6 +100,7 @@ class StoreController extends Controller
         if ($validate->fails()) {
             return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
         }
+        // todo:add valitation
         $store = Stores::create(
             $request->all(),
         );

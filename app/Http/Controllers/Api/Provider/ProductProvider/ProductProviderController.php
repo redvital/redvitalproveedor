@@ -45,9 +45,10 @@ class ProductProviderController extends Controller
             return $ejemplo;
     }
     public function listSupplierForProduct(Request $request,Provider $provider_id){
-        $approved = $request->query('approved');
-        $commercialized = $request->query('commercialized');
+        // $approved = $request->query('approved');
+        // $commercialized = $request->query('commercialized');
         $collection = $provider_id->products;
+        return ProductProviderResource::collection($collection);
         return $collection->filter(function($item){
             return $item ;
             // finalizar filtro
