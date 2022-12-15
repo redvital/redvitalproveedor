@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 class StoreController extends Controller
 {
     use AuthUser;
+    private $requestFilterSupplier = '';
     private $rules = [
         'name' => 'required',
         'code' => 'required',
@@ -27,28 +28,43 @@ class StoreController extends Controller
     ];
 
 
-    public function list_stock(Stores $store_id){
+    public function list_stock(Request $request, Stores $store_id){
 
         $data= $store_id->stock()->with('productProviders.provider', 'productProviders.product')->get()->pluck('productProviders')->values();
         $userInfo = $this->infoUserMe();
-        if($userInfo->role == "client"){
-             // return $userInfo->providerUserMe;
-        if(is_null($userInfo->providerUserMe)){
-            return $this->errorResponse("Debe tener un proveedor registrado",400);
-        };
-        $collation = $data->filter(function($element){
-            $provideregister = $this->infoUserMe()->providerUserMe->id;
-            return $element->provider->id == $provideregister;
-        });
-        return $this->showAll($collation);
+        if ($userInfo->role == "client") 
+        {
+            if(is_null($userInfo->providerUserMe))
+            {
+               return $this->errorResponse("Debe tener un proveedor registrado",400);
+            };
+           $collation = $data->filter(function($element)
+           {
+            error_log($element->provider_id);
+            error_log($this->infoUserMe()->providerUserMe->id);
+            $result = $element->provider_id == $this->infoUserMe()->providerUserMe->id;
+            return $result;
+            
+             return $element == $this->infoUserMe()->providerUserMe->id;
+           });
+           return $this->showAll($collation);
         }
 
     if($userInfo->role == "admin"){
-        return $this->showAll($data);
+        $this->requestFilterSupplier = $request->query("supplier");
+        if(empty($this->requestFilterSupplier)){
+            return $this->showAll($data);
+        }
+        Provider::findOrFail( $this->requestFilterSupplier);
+        $filterforquery=  $data->filter(function($element){
+            return $element->provider_id == $this->requestFilterSupplier;
+        })->values(); 
+         return $this->showAll($filterforquery);
+        
     }
        
     }
-
+    
     public function addStock(Request $request){
          $product = $request->query('product');
          $provider = $request->query('provider');
