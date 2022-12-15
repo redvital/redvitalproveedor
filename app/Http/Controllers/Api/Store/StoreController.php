@@ -7,16 +7,19 @@ use App\Models\Stock;
 use App\Models\Stores;
 use App\Models\Product;
 use App\Models\Provider;
+use App\Traits\AuthUser;
 use Illuminate\Http\Request;
 use App\Models\ProductProvider;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductStore;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\StoreResource;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class StoreController extends Controller
 {
+    use AuthUser;
     private $rules = [
         'name' => 'required',
         'code' => 'required',
@@ -27,9 +30,23 @@ class StoreController extends Controller
     public function list_stock(Stores $store_id){
 
         $data= $store_id->stock()->with('productProviders.provider', 'productProviders.product')->get()->pluck('productProviders')->values();
+        $userInfo = $this->infoUserMe();
+        if($userInfo->role == "client"){
+             // return $userInfo->providerUserMe;
+        if(is_null($userInfo->providerUserMe)){
+            return $this->errorResponse("Debe tener un proveedor registrado",400);
+        };
+        $collation = $data->filter(function($element){
+            $provideregister = $this->infoUserMe()->providerUserMe->id;
+            return $element->provider->id == $provideregister;
+        });
+        return $this->showAll($collation);
+        }
+
+    if($userInfo->role == "admin"){
         return $this->showAll($data);
-        // todo: agregar paginacion en esta collapse
-        // return $this->paginate($data);
+    }
+       
     }
 
     public function addStock(Request $request){

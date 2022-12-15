@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Traits\AuthUser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    use AuthUser;
 
     public function signUp(Request $request)
     {
@@ -77,15 +79,7 @@ class AuthController extends Controller
 
     public function me()
     {
-        
-        $user = Auth::user()->with('providerUserMe')->get();
-        $userFilter = $user->filter(function ($value) {
-            $me = Auth::user()->email;
-            return $value->email == $me;
-        })->first();
-        return $userFilter;
-        
-        
+        return $this->infoUserMe();   
     }
 
     public function logout(Request $request)
