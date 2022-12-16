@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Provider;
 use App\Rules\ExcelRule;
 use Illuminate\Http\Request;
+use App\Jobs\ImportProductJob;
 use App\Models\ProductProvider;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
@@ -142,24 +143,25 @@ class ProductProviderController extends Controller
      */
     public function import(Request $request, Provider $supplier_id)
     {
-        // return $request->file;
+       
         
-        // $validate = Validator::make($request->all(), [
-        //     'import' => ['required', new ExcelRule($request->file('import'))],
-        // ]);
-        // if ($validate->fails()) {
-        //     return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
-        // }
-        $fileProducts = $request->file('import');
-        try{
-            Excel::import(new ProductProviderImport($supplier_id), $fileProducts);
-            return $this->successMessage('Producto cargado Exitosamente',200);
-        }
-        catch(\Exception $e){
-            error_log("COMIENZO DEL ERROR AL IMPORT");
-            error_log($e);
-            return $this->errorResponse("Error al exportar los productos, valide que los campos requerido estan completos", Response::HTTP_BAD_REQUEST);
-        }
+         $validate = Validator::make($request->all(), [
+             'import' => ['required', new ExcelRule($request->file('import'))],
+         ]);
+         if ($validate->fails()) {
+             return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+         }
+     
+        error_log("ejecutado importancion");
+        $job = new ImportProductJob(
+            $request->file('import'),
+            $request->user(),
+            $supplier_id
+        );
+
+        $this->dispatch($job);
+
+        return $this->successMessage($job->respuestaJson());
       
     }  
 }

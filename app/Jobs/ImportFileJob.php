@@ -39,7 +39,7 @@ abstract class ImportFileJob implements ShouldQueue
 
     public function respuestaJson()
     {
-        return ["operacion_id" => $this->operacionId, "mensaje" => "Importación de archivo comenzada"];
+        return ["operacion_id" => $this->operacionId, "data" => "Importación de archivo comenzada"];
     }
 
     public function informarProgreso($progreso, $instantaneo = false)
