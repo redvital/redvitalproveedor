@@ -165,3 +165,4 @@ class ProductProviderController extends Controller
       
     }  
 }
+// update information
