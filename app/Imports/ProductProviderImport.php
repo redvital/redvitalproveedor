@@ -30,9 +30,9 @@ class ProductProviderImport implements ToCollection
 
     public function collection(Collection $rows)
     {       
-        for ($i = 3; $i < count($rows); $i++) {
+        for ($i = 3; $i <= count($rows); $i++) {
              $row = $rows[$i];
-
+            error_log("comienzo e la iteracion en productos");
             //  error_log(strval($row));z
              error_log($row['2']);
              error_log("iteraciiion $i");

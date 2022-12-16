@@ -131,9 +131,6 @@ class ProductProviderController extends Controller
             error_log($e);
             return $this->errorResponse("Error en el controlador", Response::HTTP_BAD_REQUEST);
         }
-     
-
-       
 
         }
 
@@ -159,7 +156,7 @@ class ProductProviderController extends Controller
             return $this->successMessage('Producto cargado Exitosamente',200);
         }
         catch(\Exception $e){
-            
+            error_log("COMIENZO DEL ERROR AL IMPORT");
             error_log($e);
             return $this->errorResponse("Error al exportar los productos, valide que los campos requerido estan completos", Response::HTTP_BAD_REQUEST);
         }

@@ -162,7 +162,7 @@ if($userInfo->role == "admin"){
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Stock $stock_id)
+    public function show(Stock $stock_id)
     {
         $stock =  Stock::findOrFail($stock_id->id);
         return $this->showOne($stock);
