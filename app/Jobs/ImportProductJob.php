@@ -5,7 +5,9 @@ namespace App\Jobs;
 use Error;
 use App\Models\Product;
 use App\Models\Category;
+use App\Traits\AuthUser;
 use App\Models\Condition;
+use App\Traits\ApiResponse;
 use App\Models\PaymentMethods;
 use App\Models\ProductProvider;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -15,6 +17,9 @@ use Illuminate\Support\Facades\Validator;
 
 class ImportProductJob extends ImportFileJob
 {
+    use  AuthUser;
+    use ApiResponse;
+
     protected function procesar($archivo, $usuario, $modelo)
     {
         $ram = memory_get_usage(true) / 1000;
@@ -42,7 +47,7 @@ class ImportProductJob extends ImportFileJob
             $contador = 4;
             for ($i = 4; $i <= $cantidadFilas; $i++) {
                 try {
-                     
+                    error_log($this->infoUserMe()->providerUserMe->id);
                     ($categoryValitade = Category::where('name',$sheet->getCellByColumnAndRow(3, $i)->getCalculatedValue())->first()) 
                         ?$categoryValitade 
                         :$categoryValitade = Category::create(["name" => "hola", 'description' => "ejemplo"]);
@@ -102,12 +107,16 @@ class ImportProductJob extends ImportFileJob
                             error_log($producto->id);
                             
                         } else {
+                            if(is_null($this->infoUserMe()->providerUserMe))
+                            {
+                              return $this->errorResponse("Debe tener un proveedor registrado",400);
+                            };
                             $productNew = Product::create($product);
                             error_log($productNew->name);
                             error_log("producto registrados");
                             $productprovider = ProductProvider::create([
                             'product_id' => $productNew->id,
-                            'provider_id' => $modelo->id]);
+                            'provider_id' => $this->infoUserMe()->providerUserMe->id]);
                             error_log($productprovider);
                             error_log($productprovider->id);
                             error_log("productoProvider registrado");

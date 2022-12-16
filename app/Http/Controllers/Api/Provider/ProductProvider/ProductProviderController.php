@@ -156,7 +156,7 @@ class ProductProviderController extends Controller
         $job = new ImportProductJob(
             $request->file('import'),
             $request->user(),
-            $supplier_id
+            1
         );
 
         $this->dispatch($job);

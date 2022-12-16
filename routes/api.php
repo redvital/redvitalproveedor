@@ -127,9 +127,11 @@ Route::get('/example-list1/{product}', [ProductProviderController::class, 'listP
 Route::get('/provider/{provider_id}/products', [ProductProviderController::class, 'listSupplierForProduct']);
 Route::get('/supplier/{supplier_id}/products', [ProductProviderController::class, 'index']);
 Route::post('/supplier/{supplier_id}/products', [ProductProviderController::class, 'store']);
-Route::post('/supplier/{supplier_id}/products-import', [ProductProviderController::class, 'import']);
+// Route::post('/supplier/{supplier_id}/products-import', [ProductProviderController::class, 'import']);
+Route::post('/supplier/products-import', [ProductProviderController::class, 'import']);
 /* importar productos */
-Route::post('/supplier/{supplier_id}/importar-producto', [ProductProviderController::class, 'importProduct']);
+// Route::post('/supplier/{supplier_id}/importar-producto', [ProductProviderController::class, 'importProduct']);
+// Route::post('/supplier/importar-producto', [ProductProviderController::class, 'importProduct']);
 /* exportar productos */
 Route::get('/export/{producto}', [ProductProviderController::class, 'exportProduct']);
 
