@@ -147,12 +147,12 @@ class ProductProviderController extends Controller
     {
         // return $request->file;
         
-        $validate = Validator::make($request->all(), [
-            'import' => ['required', new ExcelRule($request->file('import'))],
-        ]);
-        if ($validate->fails()) {
-            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
-        }
+        // $validate = Validator::make($request->all(), [
+        //     'import' => ['required', new ExcelRule($request->file('import'))],
+        // ]);
+        // if ($validate->fails()) {
+        //     return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+        // }
         $fileProducts = $request->file('import');
         try{
             Excel::import(new ProductProviderImport($supplier_id), $fileProducts);

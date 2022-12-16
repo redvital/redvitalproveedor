@@ -75,11 +75,6 @@ Route::get('/store/{store}', [StoreController::class, 'show']);
 Route::patch('/store/{store}', [StoreController::class, 'update']);
 Route::delete('/store/{store}', [StoreController::class, 'destroy']);
 Route::get('/store/{store_id}/products', [StoreController::class, 'store_products']);
-// add stock for store
-Route::get('/store/{store_id}/stock', [StoreController::class, 'list_stock']);
-Route::post('/stock', [StoreController::class, 'addStock']);
-
-
 // end store
 
 // brand
@@ -157,10 +152,16 @@ Route::delete('/accounttype/{account_type}', [AccountTypeController::class, 'des
 // Stock
 Route::get('/stock', [StockController::class , 'stock']);
 Route::get('/store/stock', [StockController::class , 'index']);
+
+// deprecado
+// Route::post('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::class , 'store']);
+// listar los productos del stock para el admin
+// Route::get('/stock', [StockController::class , 'stock']);
+// add stock for store
+Route::get('/store/{store_id}/stock', [StockController::class, 'list_stock']);
+Route::post('/stock', [StockController::class, 'addStock']);
 Route::get('/stock/{stock_id}', [StockController::class , 'show']);
-Route::get('/stock', [StockController::class , 'stock']);
-Route::post('/store/{store_id}/supplier/{supplier_id}/stock', [StockController::class , 'store']);
-Route::patch('/store/{store_id}/supplier/{supplier_id}/stock/{stock_id}', [StockController::class , 'update']);
+Route::patch('/stock/{stock_id}', [StockController::class , 'update']);
 Route::delete('/stock/{stock_id}', [StockController::class , 'destroy']);
 //End Stock
 
