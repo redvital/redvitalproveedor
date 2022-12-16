@@ -248,3 +248,4 @@ Route::get('/state/{state}', [StateController::class, 'show']);
     $router->delete('/microservice/proveedor/{Proveedor_id}',  [ProveedorServiceController::class,'destroy']);
 
 //   });
+// update de import pruduct
