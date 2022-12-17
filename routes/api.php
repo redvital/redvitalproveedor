@@ -21,10 +21,12 @@ use App\Http\Controllers\Api\SpecialFormOfPayment\SpecialFormsOfPaymenController
 use App\Http\Controllers\Api\State\StateController;
 use App\Http\Controllers\Api\Provider\ProviderType\ProviderTypeController;
 use App\Http\Controllers\Api\AccountType\AccountTypeController;
+use App\Http\Controllers\Api\Provider\Product\ProductController;
 use App\Http\Controllers\Microservice\StockServiceController;
 use App\Http\Controllers\Microservice\TiendaServiceController;
 use App\Http\Controllers\Microservice\ProductoServiceController;
 use App\Http\Controllers\Microservice\ProveedorServiceController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -129,11 +131,11 @@ Route::get('/supplier/{supplier_id}/products', [ProductProviderController::class
 Route::post('/supplier/{supplier_id}/products', [ProductProviderController::class, 'store']);
 // Route::post('/supplier/{supplier_id}/products-import', [ProductProviderController::class, 'import']);
 Route::post('/supplier/products-import', [ProductProviderController::class, 'import']);
-/* importar productos */
-// Route::post('/supplier/{supplier_id}/importar-producto', [ProductProviderController::class, 'importProduct']);
-// Route::post('/supplier/importar-producto', [ProductProviderController::class, 'importProduct']);
-/* exportar productos */
-Route::get('/export/{producto}', [ProductProviderController::class, 'exportProduct']);
+
+
+// Products
+Route::get('/product/{product_id}', [ProductController::class, 'show']);
+Route::patch('/product/{product_id}', [ProductController::class, 'update']);
 
 // Provider Type
 Route::get('/providertype', [ProviderTypeController::class, 'index']);
