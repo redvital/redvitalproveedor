@@ -69,6 +69,11 @@ class ProviderController extends Controller
     public function show(Request $request, Provider $provider)
     {
         // todo: mostrar informacion si le pertenece al user registrado
+
+
+       $provider->products;
+        // return $productForProvider;
+        
         return $this->showOne($provider);
     }
 
