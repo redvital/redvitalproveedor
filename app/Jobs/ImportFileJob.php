@@ -2,22 +2,21 @@
 
 namespace App\Jobs;
 
-use App\Traits\ApiResponse;
-use Illuminate\Support\Str;
-use Illuminate\Bus\Queueable;
-use App\Events\ProgresoArchivoEvent;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Queue\InteractsWithQueue;
 use App\Events\ErrorSubiendoArchivoEvent;
 use App\Events\ExitoSubiendoArchivoEvent;
+use App\Events\ProgresoArchivoEvent;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
  
 abstract class ImportFileJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, ApiResponse;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $rutaArchivo;
     protected $operacionId;
@@ -41,8 +40,8 @@ abstract class ImportFileJob implements ShouldQueue
 
     public function respuestaJson()
     {
-        $this->successMessage("Importacion de archivo a comenzado",  Response::HTTP_UNPROCESSABLE_ENTITY);
-        // return ["operacion_id" => $this->operacionId, "data" => "Importación de archivo comenzada"];
+        
+         return ["operacion_id" => $this->operacionId, "data" => "Importación de archivo comenzada", "code" => 200];
     }
 
     public function informarProgreso($progreso, $instantaneo = false)

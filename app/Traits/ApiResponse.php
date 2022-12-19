@@ -22,7 +22,7 @@ trait ApiResponse
     }
     protected function successMessage($data, $code = Response::HTTP_ACCEPTED)
     {
-        return response()->json(['data' => $data], $code);
+        return response()->json(['data' => $data, $code]);
     }
     
     public function successDataService($data, $code = Response::HTTP_BAD_REQUEST)
