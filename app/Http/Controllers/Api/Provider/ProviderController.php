@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Api\Provider;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Provider;
-use App\Models\ProductProvider;
+use Error;
 use App\Models\Product;
+use App\Models\Provider;
+use App\Rules\ExcelRule;
+use Illuminate\Http\Request;
+use App\Models\ProductProvider;
 use App\Models\SupplierBankDetails;
+use App\Http\Controllers\Controller;
+use App\Jobs\ImportProveedoresInfoJob;
+use App\Http\Resources\ProviderResourse;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-use App\Http\Resources\ProviderResourse;
-use Error;
 
 class ProviderController extends Controller
 {
@@ -123,6 +125,25 @@ class ProviderController extends Controller
     public function existRifProvider($rif)
     {
         return Provider::where('rif', $rif)->first();
+    }
+    public function import(Request $request){
+        $validate = Validator::make($request->all(), [
+            'import' => ['required', new ExcelRule($request->file('import'))],
+        ]);
+        if ($validate->fails()) {
+            return $this->errorResponse($validate->errors(), Response::HTTP_BAD_REQUEST);
+        }
+    
+       error_log("ejecutado importancion");
+       $job = new ImportProveedoresInfoJob(
+           $request->file('import'),
+           $request->user(),
+           1
+       );
+
+       $this->dispatch($job);
+
+       return $this->successMessage($job->respuestaJson());
     }
 }
 

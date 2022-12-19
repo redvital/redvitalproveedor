@@ -65,6 +65,7 @@ Route::delete('/provider/{provider}', [ProviderController::class, 'destroy']);
 
 //Pre Register Providers //
 Route::post('/provider', [ProviderController::class, 'store']);
+Route::post('/provider/import', [ProviderController::class, 'import']);
 Route::post('/provider/{supplier_id}/supplierbankdetails', [SupplierBankDetailsController::class, 'store']);
 Route::post('/provider/{supplier_id}/additionalsupplierinformation', [AdditionalSupplierInformationController::class, 'store']);
 //End Pre Register Providers //

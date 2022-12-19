@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('representatives', function (Blueprint $table) {
             $table->id();
-            $table->string('commercial_register');
-            $table->string('rif');
-            $table->string('representatives_document');
+            $table->string('commercial_register')->nullable();
+            $table->string('rif')->nullable();
+            $table->string('representatives_document')->nullable();
             $table->foreignId('supplier_id')->constrained('providers');
             $table->timestamps();
         });
