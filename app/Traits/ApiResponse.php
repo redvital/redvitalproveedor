@@ -29,6 +29,7 @@ trait ApiResponse
     {
         return response($data,$code)->header('Content-Type', 'application/json');
     }
+    
     protected function errorResponse($message, $code = Response::HTTP_BAD_REQUEST)
     {
         return response()->json(['error' => $message, 'code' => $code], $code);
