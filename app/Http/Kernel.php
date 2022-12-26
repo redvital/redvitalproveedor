@@ -21,6 +21,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \App\Http\Middleware\Cors::class
     ];
 
     /**
@@ -66,5 +67,6 @@ class Kernel extends HttpKernel
         'accessrole'=>\App\Http\Middleware\EnsureUserRoleIsAllowedToAccess::class,
         'admin'=> \App\Http\Middleware\AdminMiddleware::class,
         'client.credentials' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
+        'cors' => \App\Http\Middleware\Cors::class, 
     ];
 }

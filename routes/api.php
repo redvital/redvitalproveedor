@@ -39,13 +39,13 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
  */
-
+// Route::group(['middleware' => ['cors']], function () {
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signUp']);
 
 
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:api', 'cors')->group(function () {
 
 Route::get('me', [AuthController::class, 'me']);
 Route::post('logout', [AuthController::class, 'logout']);
@@ -220,6 +220,7 @@ Route::get('/state/{state}', [StateController::class, 'show']);
 
 });
 
+
 // finish
 
 // microservices 
@@ -251,4 +252,5 @@ Route::get('/state/{state}', [StateController::class, 'show']);
     $router->delete('/microservice/proveedor/{Proveedor_id}',  [ProveedorServiceController::class,'destroy']);
 
 //   });
+
 // update de import pruduct
