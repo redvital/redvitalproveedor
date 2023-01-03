@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Producto;
+use App\Models\Product;
 
 class AdminProductosController extends Controller
 {
@@ -48,7 +48,7 @@ class AdminProductosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Producto $producto)
+    public function show(Product $producto)
     {
         return view('/admin/verproductos',[
             'producto'=>$producto
@@ -61,7 +61,7 @@ class AdminProductosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Producto $producto)
+    public function edit(Product $producto)
     {
        // $producto= Producto::where('id',$producto->sku_redvital)->get();
        // dd($id);
