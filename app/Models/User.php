@@ -10,6 +10,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
+use App\Notifications\ResetPasswordNotification;
+use Aws\Api\Validator;
 
 class User extends Authenticatable
 {
@@ -26,7 +28,7 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name', 'email', 'password','role'
+        'name', 'email', 'password', 'role'
     ];
 
     /**
@@ -67,7 +69,8 @@ class User extends Authenticatable
     {
         return 'profile/username';
     }
-    public function Provider(){
+    public function Provider()
+    {
         return $this->hasMany(Provider::class);
     }
     public function providerUserMe()
@@ -78,4 +81,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(FcmToken::class);
     }
+
 }
