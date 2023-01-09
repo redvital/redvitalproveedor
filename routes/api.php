@@ -45,15 +45,18 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signUp']);
 
-// Route::post('forgot-password', [NewPasswordController::class, 'forgotPassword']);
-// Route::post('reset-password', [NewPasswordController::class, 'reset']);
+ Route::post('forgot-password', [NewPasswordController::class, 'forgotPassword']);
+ //Route::post('reset-password', [NewPasswordController::class, 'reset']);
 
 Route::middleware('auth:api', 'cors')->group(function () {
 
     Route::get('me', [AuthController::class, 'me']);
     Route::post('logout', [AuthController::class, 'logout']);
     
-    Route::post('/webhook', [WebhookController::class],'handle');
+    Route::get('/webhook', [WebhookController::class], 'index');
+    Route::post('/webhook', [WebhookController::class, 'store']);
+    Route::get('/webhook/{webhook}', [WebhookController::class, 'show']);
+    Route::patch('/webhook/{webhook}', [WebhookController::class, 'update']);
 
     Route::get('/category', [CategoryController::class, 'index']);
     Route::post('/category', [CategoryController::class, 'store']);
