@@ -11,12 +11,12 @@
         "jeroennoten/laravel-adminlte": "^3.8",
         "laravel/framework": "^9.11",
         "laravel/jetstream": "^2.7",
-        "laravel/passport": "^10.1",
+        "laravel/passport": "^11.4",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
+        "laravel/ui": "^3.3",
         "league/flysystem-aws-s3-v3": "^3.10",
         "livewire/livewire": "^2.5",
-        "laravel/ui": "^3.3",
         "maatwebsite/excel": "^3.1"
     },
     "require-dev": {
@@ -68,4 +68,3 @@
     "minimum-stability": "dev",
     "prefer-stable": true
 }
-
