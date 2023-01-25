@@ -144,6 +144,7 @@ Route::middleware('auth:api', 'cors')->group(function () {
     // Products
     Route::get('/product/{product_id}', [ProductController::class, 'show']);
     Route::patch('/product/{product_id}', [ProductController::class, 'update']);
+    Route::patch('/product/syncproduct', [ProductController::class, 'syncproduct']);
 
     // Provider Type
     Route::get('/providertype', [ProviderTypeController::class, 'index']);

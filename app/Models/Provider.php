@@ -36,7 +36,7 @@ class Provider extends Model
     }
 
     public function stock () {
-        return $this->hasMany(Stock::class, 'supplier_id');
+        return $this->hasMany(Stock::class);
     }
 
     public function products(){

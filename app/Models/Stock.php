@@ -15,9 +15,9 @@ class Stock extends Model
         'store_id',
     ];
 
-    public function provider ()
+    public function provider()
     {
-        return $this->belongsTo(Provider::class, 'supplier_id');
+        return $this->belongsTo(Provider::class);
     }
 
   

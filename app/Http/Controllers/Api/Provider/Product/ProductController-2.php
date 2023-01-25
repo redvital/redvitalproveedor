@@ -40,17 +40,12 @@ class ProductController extends Controller
         );
         
         $product = $woocommerce->get('products/?sku='. $product_id->sku_provider)[0];
+        return $product;
         $data = [
-            'regular_price' => $request->cost_per_unit,
-            'stock_quantity' => $request->units,
-            'name' => $request->name,
+            'regular_price' => '22.4',
+            'stock_quantity' => 3000
         ];
-        if ($request['variation'] != -1){
-            $woocommerce->put('products/'.$product->id.'/variations/'.$request->variation, $data);
-        }
-        else{
-            $woocommerce->put('products/'.$product->id, $data);
-        }
+        return $woocommerce->put('products/'.$product->id.'/variations/'.$request->variation, $data);
         // end akk
 
         $product_id->save();

@@ -311,6 +311,10 @@ return [
                     'url'  => '/admin/productos',
                 ],
                 [
+                    'text' => 'Listado de Providers',
+                    'route'  => 'admin.providers',
+                ],
+                [
                     'text' => 'Generar TXT',
                     'url'  => 'admin/crea-txt',
                 ],
